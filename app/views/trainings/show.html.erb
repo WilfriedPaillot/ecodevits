@@ -1,0 +1,29 @@
+<h1>Training detail</h1>
+
+<h2><%= @training.title %></h2>
+
+<p><%= @training.description %></p>
+<p>Cette formation compte <%= pluralize(@training.sections.count, 'section')%> </p>
+
+<% @training.sections.each do |section| %>
+  <ul>
+    <h3>
+      <%= section.title %>
+    </h3>
+    <p>
+      <%= section.description.chop %> en <%= pluralize(section.lessons.count, 'leçon')%> !
+    </p>
+    <% section.lessons.each do |lesson| %>
+      <li>
+        <%= lesson.title %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
+  <%= link_to "Retour à la liste", trainings_path %>
+  
+  <%if current_user == @training.user%>
+    <%= link_to "Modifier", edit_training_path(@training) %>
+    <%= link_to "Supprimer", training_path(@training), method: :delete, data: { confirm: "Voulez-vous vraiment supprimer cette formation ?" } %>
+  <%end%>

@@ -1,0 +1,13 @@
+<h1>Training edition</h1>
+
+  <%= form_for @training do |f| %>
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+    <br>
+    <%= f.label :description %>
+    <%= f.text_area :description %>
+    <br>
+    <%= f.submit %>
+  <% end %>
+
+  <%= link_to "Annuler", :back %>

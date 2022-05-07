@@ -1,0 +1,13 @@
+<h1>Trainings list</h1>
+
+<div>
+  <p>Créer une formation</p>
+  <%= link_to "Créer une formation", new_training_path %>
+</div>
+
+<% @trainings.each do |training| %>
+  <h2><%= training.title %></h2>
+  <p><%= training.description %></p>
+  <p>Cette formation contient <%= pluralize(training.sections.count, 'section') %></p>
+  <%= link_to "Détails", training_path(training) %>
+<%end%>

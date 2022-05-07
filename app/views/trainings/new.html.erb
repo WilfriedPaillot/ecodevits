@@ -1,0 +1,21 @@
+<h1>Training edition</h1>
+
+  <% if @training.errors.any? %>
+    <div class="alert alert-danger">
+      <% @training.errors.each do |error| %>
+        <%= error %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <%= form_for @training do |f| %>
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+    <br>
+    <%= f.label :description %>
+    <%= f.text_area :description %>
+    <br>
+    <%= f.submit %>
+  <% end %>
+
+  <%= link_to "Annuler", :back %>
