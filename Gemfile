@@ -60,3 +60,6 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem "devise", "~> 4.8"
+
+gem "database_cleaner", "~> 2.0"
+gem "faker", "~> 2.20"
