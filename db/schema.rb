@@ -18,6 +18,8 @@ ActiveRecord::Schema.define(version: 2022_05_06_231140) do
   create_table "lessons", force: :cascade do |t|
     t.string "title", null: false
     t.text "content", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.bigint "section_id"
     t.index ["section_id"], name: "index_lessons_on_section_id"
   end
@@ -25,6 +27,8 @@ ActiveRecord::Schema.define(version: 2022_05_06_231140) do
   create_table "sections", force: :cascade do |t|
     t.string "title", null: false
     t.text "description", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.bigint "training_id"
     t.index ["training_id"], name: "index_sections_on_training_id"
   end
@@ -32,6 +36,8 @@ ActiveRecord::Schema.define(version: 2022_05_06_231140) do
   create_table "trainings", force: :cascade do |t|
     t.string "title", null: false
     t.text "description", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.bigint "user_id"
     t.index ["user_id"], name: "index_trainings_on_user_id"
   end
@@ -39,6 +45,8 @@ ActiveRecord::Schema.define(version: 2022_05_06_231140) do
   create_table "trainings_users", id: false, force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "training_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "completion_rate"
     t.index ["training_id", "user_id"], name: "index_trainings_users_on_training_id_and_user_id"
     t.index ["user_id", "training_id"], name: "index_trainings_users_on_user_id_and_training_id"
