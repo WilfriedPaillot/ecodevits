@@ -11,4 +11,7 @@ class Training < ApplicationRecord
   validates :title, length: { in: 10..50, message: ' doit contenir entre 10 et 50 caractères' }, on: :create
   # Validates description length
   validates :description, length: { minimum: 50, message: ' doit contenir au moins 50 caractères' }, on: :create
+
+  # Returns the first 3 trainings for the homepage
+  scope :latest, ->(n) { order(:created_at).reverse_order.take(n) }
 end
