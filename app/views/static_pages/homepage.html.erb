@@ -1,2 +1,16 @@
 <h1>StaticPages#homepage</h1>
 <p>Find me in app/views/static_pages/homepage.html.erb</p>
+
+<% @latest_trainings.each do |training| %>
+  <ul>
+    <li>
+      <div id=""><%= training.title %></div>
+      <div id=""><%= training.description %></div>
+      <div id="">
+        Ajoutée le <%= training.created_at.strftime("%d/%m/%Y à %H:%M") %>
+        par <%= training.user.email.slice(0, training.user.email.index('@')) %> 
+      </div>
+
+    </li>
+  </ul>
+<% end %>
