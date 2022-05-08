@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get 'static_pages/about'
   
   resources :trainings
+  resources :lessons
   resources :trainings_users, only: [:new, :create]
   
   scope '/dashboard' do
