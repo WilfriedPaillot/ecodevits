@@ -20,8 +20,9 @@
     <% end %>
   </ul>
 <% end %>
+  <%= link_to 'Rejoindre la formation', trainings_users_path(training_id: @training.id), method: :post %>
 
-  <%= link_to "Retour à la liste", trainings_path %>
+  <p><%= link_to "Retour à la liste", trainings_path %></p>
   
   <%if current_user == @training.user%>
     <%= link_to "Modifier", edit_training_path(@training) %>
