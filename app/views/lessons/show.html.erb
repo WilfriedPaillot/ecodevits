@@ -1,0 +1,9 @@
+<h1>Lessons#show</h1>
+
+<h2><%= @lesson.title %></h2>
+<p><%= @lesson.content %></p>
+
+<%= link_to "Suivant", training_section_lesson_path(@training, @section, @lesson), method: :patch %>
+<%#= link_to "Suivant", training_section_lesson_path(@training, @section, @lesson.next) %>
+
+<%= link_to "Retour à la liste", dashboard_index_path %>
