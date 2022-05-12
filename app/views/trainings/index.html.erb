@@ -9,5 +9,5 @@
   <h2><%= training.title %></h2>
   <p><%= training.description %></p>
   <p>Cette formation contient <%= pluralize(training.sections.count, 'section') %></p>
-  <%= link_to "Détails", training_path(training) %>
+  <%= link_to "Détails", catalogue_path(training) %>
 <%end%>

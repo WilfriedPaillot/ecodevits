@@ -10,7 +10,7 @@
         Ajoutée le <%= training.created_at.strftime("%d/%m/%Y à %H:%M") %>
         par <%= training.user.email.slice(0, training.user.email.index('@')) %> 
       </div>
-      <%= link_to 'Consulter', training_path(training.id) %>
+      <%= link_to 'Consulter', catalogue_path(training.id) %>
 
     </li>
   </ul>

@@ -12,12 +12,12 @@ class DashboardController < ApplicationController
   end
 
   def student
-    @user_trainings = current_user.trainings
+    @user_trainings = current_user.user_trainings
     if @user_trainings.empty?
-      flash[:alert] = 'Vous n\'avez pas encore de cours'
-      render dashboard_index_path
+      flash[:alert] = 'Vous n\'avez pas encore de formations'
+      redirect_to catalogue_index_path
     else
-      @my_trainings = current_user.trainings
+      @my_trainings = @user_trainings.map { |user_training| user_training.training }
     end
   end
 

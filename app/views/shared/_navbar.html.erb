@@ -1,7 +1,7 @@
 <nav>
   <ul>
     <li><%= link_to 'Accueil', root_path %></li>
-    <li><%= link_to 'Catalogue', trainings_path %></li>
+    <li><%= link_to 'Catalogue', catalogue_index_path %></li>
     <% if user_signed_in? %>
       <% if current_user.student? %>
         <li><%= link_to 'Mes formations', dashboard_index_path %></li>

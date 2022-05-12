@@ -3,7 +3,5 @@
 <h2><%= @lesson.title %></h2>
 <p><%= @lesson.content %></p>
 
-<%= link_to "Suivant", training_section_lesson_path(@training, @section, @lesson), method: :patch %>
-<%#= link_to "Suivant", training_section_lesson_path(@training, @section, @lesson.next) %>
-
+<%= link_to "Suivant", user_training_path(current_user.user_trainings.find_by(training_id: @training.id, user_id: current_user.id))+"?lesson=#{@lesson.id}", method: :patch %>
 <%= link_to "Retour à la liste", dashboard_index_path %>
