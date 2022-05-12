@@ -1,15 +1,18 @@
 class UserTraining < ApplicationRecord
-  after_initialize :init_completion_rate
+  after_initialize :init_completed
 
   belongs_to :training
   belongs_to :user
+  has_many :sections, through: :training
+  has_many :lessons, through: :sections
 
   validates :training, :user, presence: true
   validates :training, uniqueness: { scope: :user, message: ' est déjà inscrit à ce cours' }
-  validates :completion_rate, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100, message: ' doit être un nombre entier compris entre 0 et 100' }
+  # validates :completed , inclusion: { in: [true, false] }, on: :update
 
 
-  def init_completion_rate
-    self.completion_rate ||= 0
+  def init_completed
+    self.completed ||= false
   end
+
 end

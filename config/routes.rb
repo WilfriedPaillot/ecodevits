@@ -4,9 +4,10 @@ Rails.application.routes.draw do
   get 'static_pages/contact'
   get 'static_pages/about'
   
-  resources :trainings
+  resources :trainings, as: :catalogue, path: :catalogue
   resources :lessons
-  resources :trainings_users, only: [:new, :create]
+  #old resources :trainings_users, only: [:new, :create] 
+  resources :user_trainings, only: [:new, :create, :update]
   
   scope '/dashboard' do
     resources :trainings do
