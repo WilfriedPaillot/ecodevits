@@ -12,8 +12,9 @@ class User < ApplicationRecord
   has_many :sections, through: :trainings
   has_many :lessons, through: :sections
   # Associations for student
-  has_many :trainings_users, dependent: :destroy
-  has_many :trainings, through: :trainings_users
+  has_many :user_trainings, dependent: :destroy
+
+  has_many :trainings, through: :user_trainings
   has_many :sections, through: :trainings
   has_many :lessons, through: :sections
 
