@@ -28,4 +28,8 @@ class Lesson < ApplicationRecord
     self.section.training.sections.count > 1 && self.section.id != section.training.sections.last.id
   end
 
+  def next_section
+    section.training.sections.find_by(id: self.section.id + 1) if self.section.id != section.training.sections.last.id
+  end
+
 end
