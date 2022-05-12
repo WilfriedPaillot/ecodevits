@@ -1,20 +1,29 @@
 <h1>Liste de mes formations</h1>
 
-<% @my_trainings.each do |training| %>
+<% @my_trainings.each do |user_training| %>
   <ul>
-    <h2><%= training.title %></h2>
-    <p><%= training.description %></p>
-  <% training.sections.each do |section| %>
+    <h2><%= user_training.training.title %></h2>
+    <% if user_training.completed? %>
+      <li>Formation terminée</li>
+    <% end %>
+    <p><%= user_training.training.description %></p>
+  <% user_training.sections.each do |section| %>
     <ul>
       <h3><%= section.title %></h3>
       <p><%= section.description %></p>
     <% section.lessons.each do |lesson| %>
       <ul>
-        <h4><%= link_to lesson.title, training_section_lesson_path(training, section, lesson) %></h4>
+        <h4><%= link_to lesson.title, training_section_lesson_path(user_training, section, lesson) %></h4>
+        <% if user_training.lessons_completed.include?(lesson.id.to_s) %>
+          <p>Cette leçon est terminée</p>
+        <% else %>
+          <p>Cette leçon n'est pas terminée</p>
+        <% end %>
       </ul>
     <% end %>
     </ul>
   <%end%>
   </ul>
 <%end%>
+
 

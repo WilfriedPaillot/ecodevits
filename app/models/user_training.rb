@@ -8,11 +8,13 @@ class UserTraining < ApplicationRecord
 
   validates :training, :user, presence: true
   validates :training, uniqueness: { scope: :user, message: ' est déjà inscrit à ce cours' }
-  # validates :completed , inclusion: { in: [true, false] }, on: :update
-
 
   def init_completed
     self.completed ||= false
+  end
+
+  def completed?
+    self.lessons_completed.length == self.lessons.length 
   end
 
 end

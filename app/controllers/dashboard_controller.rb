@@ -17,7 +17,7 @@ class DashboardController < ApplicationController
       flash[:alert] = 'Vous n\'avez pas encore de formations'
       redirect_to catalogue_index_path
     else
-      @my_trainings = @user_trainings.map { |user_training| user_training.training }
+      @my_trainings = @user_trainings
     end
   end
 
