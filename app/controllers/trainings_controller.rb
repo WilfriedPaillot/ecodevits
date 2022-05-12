@@ -6,9 +6,9 @@ class TrainingsController < ApplicationController
   def index
     @trainings = Training.order_desc
 
-    respond_to do |format|
-      format.html { render :index }
-    end
+    # respond_to do |format|
+    #   format.html { render :index }
+    # end
   end
 
   def show
