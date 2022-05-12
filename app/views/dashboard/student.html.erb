@@ -1,24 +1,20 @@
-<h1>Dashboard#student</h1>
-<p>Find me in app/views/dashboard/student.html.erb</p>
+<h1>Liste de mes formations</h1>
 
 <% @my_trainings.each do |training| %>
   <ul>
-    <li><%= training.title %></li>
-    <li><%= training.description %></li>
-  </ul>
+    <h2><%= training.title %></h2>
+    <p><%= training.description %></p>
   <% training.sections.each do |section| %>
     <ul>
-      <li><%= section.id %></li>
-      <li><%= section.title %></li>
-      <li><%= section.description %></li>
-    </ul>
+      <h3><%= section.title %></h3>
+      <p><%= section.description %></p>
     <% section.lessons.each do |lesson| %>
       <ul>
-        <li><%= lesson.id %></li>
-        <li><%= lesson.title %></li>
-        <%= link_to "Lire", training_section_lesson_path(training, section, lesson) %>
+        <h4><%= link_to lesson.title, training_section_lesson_path(training, section, lesson) %></h4>
       </ul>
     <% end %>
+    </ul>
   <%end%>
+  </ul>
 <%end%>
 
