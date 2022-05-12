@@ -78,6 +78,12 @@ test:
 #   production:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
+staging:
+  <<: *default
+  database: ecodevit_staging
+  username: ecodevit
+  password: <%= ENV['ECODEVIT_DATABASE_PASSWORD'] %>
+
 production:
   <<: *default
   database: ecodevit_production

@@ -42,16 +42,6 @@ ActiveRecord::Schema.define(version: 2022_05_09_000906) do
     t.index ["user_id"], name: "index_trainings_on_user_id"
   end
 
-  create_table "trainings_users", id: false, force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "training_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "completion_rate"
-    t.index ["training_id", "user_id"], name: "index_trainings_users_on_training_id_and_user_id"
-    t.index ["user_id", "training_id"], name: "index_trainings_users_on_user_id_and_training_id"
-  end
-
   create_table "user_trainings", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "training_id"
