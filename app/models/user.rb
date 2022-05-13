@@ -1,11 +1,12 @@
 class User < ApplicationRecord
+  after_initialize :set_default_role, :if => :new_record?
+  before_commit :set_approved_for_instructor, on: :create
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
         :recoverable, :rememberable, :validatable
 
   enum role: [:student, :instructor, :admin]
-  after_initialize :set_default_role, :if => :new_record?
 
   # Associations for instructor
   has_many :trainings, dependent: :destroy
@@ -38,10 +39,22 @@ class User < ApplicationRecord
     length: { maximum: 25, message: "doit être inférieur à 25 caractères" }, 
     format: { with: /\A[a-zA-Z\-]+\z/ , message: "ne doit contenir que des lettres" }, 
     on: :update
-    
+
+  def active_for_authentication? 
+    super && approved?
+  end 
+  
+  def inactive_message 
+    approved? ? super : :not_approved
+  end
+
   private
     def set_default_role
       self.role ||= :student
+    end
+
+    def set_approved_for_instructor
+      self.approved = false if self.role == "instructor"
     end
   end
 
