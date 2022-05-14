@@ -7,8 +7,8 @@ p ' ########################'
 
 User.create!(
   email: "admin@yopmail.com", 
-  password: 'EcoDevIT@2022', 
-  username: Faker::Internet.username(specifier: 5..8), 
+  password: 'admin@2022', 
+  username: Faker::Internet.username(specifier: 3..15, separators: %w(_)), 
   role: 2
 )
 p "L'utilisateur #{User.last.username.capitalize} vient d'être généré."
@@ -16,12 +16,19 @@ p "Son adresse email est #{User.last.email}."
 p "Son role est #{User.last.role}."
 puts "\n"
 
-3.times do |i|
+10.times do |i|
   User.create!(
     email: "instructor#{i+1}@yopmail.com", 
-    password: 'EcoDevIT@2022', 
-    username: Faker::Internet.username(specifier: 5..8), 
-    role: 1)
+    password: 'instructor@2022', 
+    username: Faker::Internet.username(specifier: 3..15, separators: %w(_)),
+    first_name: Faker::Name.first_name,
+    last_name: Faker::Name.last_name,
+    adress: Faker::Address.street_address,
+    zipcode: rand(10000..95000),
+    city: Faker::Address.city,
+    specialities: [Faker::ProgrammingLanguage.name, Faker::ProgrammingLanguage.name],
+    role: 1
+  )
     p "L'utilisateur #{User.last.username.capitalize} vient d'être généré."
     p "Son adresse email est #{User.last.email}."
     p "Son role est #{User.last.role}."
@@ -31,8 +38,9 @@ end
 5.times do |i|
   User.create!(
     email: "student#{i+1}@yopmail.com", 
-    password: 'EcoDevIT@2022',
-    username: Faker::Internet.username(specifier: 5..8))
+    password: "student#{i+1}@2022",
+    username: Faker::Internet.username(specifier: 3..15, separators: %w(_)),
+  )
   p "L'utilisateur #{User.last.username.capitalize} vient d'être généré."
   p "Son adresse email est #{User.last.email}."
   p "Son role est #{User.last.role}."
