@@ -25,7 +25,7 @@
           </li>
         <%elsif user.instructor?  %>
           <li>Formations enseignées :
-            <%= user.trainings.map { |it| it.training.title }.join(", ") %>
+            <%#= user.trainings.map { |it| it.training.title }.join(", ") %>
             <%= Training.where(user_id: user.id).map { |t| t.title }.join(", ") %>
           </li>
         <%end%>

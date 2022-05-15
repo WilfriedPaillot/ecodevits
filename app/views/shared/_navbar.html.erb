@@ -6,8 +6,7 @@
       <% if current_user.student? %>
         <li><%= link_to 'Mes formations', dashboard_index_path %></li>
       <% else %>
-        <li><%= link_to 'Mes formations', dashboard_index_path %></li>
-        <li><%= link_to 'Administration', root_path %></li>
+        <li><%= link_to 'Mon dashboard', dashboard_index_path %></li>
       <% end %>
       <li><%= link_to 'Déconnexion', destroy_user_session_path, method: :delete %></li>
     <% else %>
