@@ -1,6 +1,9 @@
 class Lesson < ApplicationRecord
   belongs_to :section
-  
+  has_one_attached :video
+  has_one_attached :thumbnail
+  has_many_attached :documents
+
   # Validates presence of minimum data for a lesson
   validates :title, :content, :section_id, presence: { message: "doit être renseigné" }
   # Validates title length and uniqueness within a section
