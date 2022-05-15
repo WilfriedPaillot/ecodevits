@@ -13,7 +13,23 @@ class Lesson < ApplicationRecord
   # Validates content length
   validates :content, length: { minimum: 150, message: ' doit contenir au moins 150 caractères' }, on: :create
 
+  # Validates presence of video OR url
+  validates :video, attached: { message: 'doit être uploadée si aucune URL saisie' }, if: :video_and_url_empty?
+  validates :video, size: { less_than: 650.megabytes, message: ' est trop volumineux, préférez l\'URL s\'il vous plait' }
+  validates :url, presence: {message: 'ne peut être vide si aucune vidéo uploadée'} , if: :video_and_url_empty?
+  
+  # Validates documents format, size and presence in non-empty lesson
+  validates :documents, content_type: { in: %w[application/pdf application/msword application/vnd.openxmlformats-officedocument.wordprocessingml.document application/vnd.ms-excel application/vnd.openxmlformats-officedocument.spreadsheetml.sheet application/vnd.ms-powerpoint application/vnd.openxmlformats-officedocument.presentationml.presentation], message: 'aux extensions acceptées: .pdf, .doc, .docx, .xls, .xlsx, .ppt, .pptx' }
+  validates :documents, size: { less_than: 5.megabytes, message: ' est trop volumineux' }
 
+  # Validates thumbnail content type and size
+  validates :thumbnail, content_type: { in: %w[image/jpeg image/png image/svg], message: ' aux extensions .jpg, .jpeg, .png et .svg acceptées' }
+  validates :thumbnail, size: { less_than: 5.megabytes, message: ' est trop volumineuse' }
+
+  # Method for validation 
+  def video_and_url_empty?
+    video.attached? == false && url.blank?
+  end
   # Returns the next lesson in the section
   def next
     section.lessons.find_by(id: self.id + 1) if self.id != section.lessons.last.id
