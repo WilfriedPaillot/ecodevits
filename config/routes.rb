@@ -10,6 +10,12 @@ Rails.application.routes.draw do
   resources :user_trainings, only: [:new, :create, :update]
   
   scope '/dashboard' do
+    resources :users do
+      member do
+        get :set_approval
+        get :reject
+      end
+    end
     resources :trainings do
       resources :sections do
         resources :lessons
