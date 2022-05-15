@@ -1,2 +1,62 @@
-<h1>Dashboard#admin</h1>
-<p>Find me in app/views/dashboard/admin.html.erb</p>
+<h1>Dashboards#admin</h1>
+
+<h2> Bienvenue sur votre espace d'administration 
+  <%=current_user.first_name.capitalize%> <%=current_user.last_name.upcase%> 
+</h2>
+
+<div id="users">
+  <h3>Liste des utilisateurs</h3>
+    <% @users.each do |user| %>
+      <ul>
+        <li>
+          <%= user.first_name.capitalize %> <%= user.last_name.upcase %>
+        </li>
+        <li>
+          <%= user.email %>
+        </li>
+        <%if !user.student? %>
+          <li>
+            <%= user.approved? ? "Actif" : "Inactif" %>
+          </li>
+        <%end%>
+        <%if user.student? && user.user_trainings.exists? %>
+          <li>Formations suivies :
+            <%= user.user_trainings.map { |ut| ut.training.title }.join(", ") %>
+          </li>
+        <%elsif user.instructor?  %>
+          <li>Formations enseignées :
+            <%= user.trainings.map { |it| it.training.title }.join(", ") %>
+            <%= Training.where(user_id: user.id).map { |t| t.title }.join(", ") %>
+          </li>
+        <%end%>
+      </ul>
+    <% end %>
+</div>
+
+<div id="approving">
+  <h2>Gérer les demandes en attentes</h2>
+
+  <p>Profils à valider <span style="color: orange"><%= @unapproved_user.count %></span></p>
+
+    <% @user_approval.each do |user| %>
+      <hr>
+      <ul id="approval<%=user.id%>">
+        <li>
+          <%= user.first_name.capitalize %> <%= user.last_name.upcase %>
+        </li>
+        <li>
+          <%= user.email %>
+        </li>
+        <br>
+        <li>
+          Specialities: <%= user.specialities.map { |s| s }.join(', ') %>
+        <li>
+          <%= link_to set_approval_user_path(user), remote: false do%>
+            <%= user.approved? ? "Désactiver" : "Accepter" %>
+          <% end %>
+          <%= link_to 'Refuser', reject_user_path(user), remote: false, data: { confirm: 'Êtes-vous sûr de vouloir refuser ce profil ?' } %>
+        </li>
+      </ul>
+    <% end %>
+</div>
+
