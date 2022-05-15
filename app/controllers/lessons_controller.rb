@@ -25,7 +25,7 @@ class LessonsController < ApplicationController
   
   private
     def lesson_params
-      params.require(:lesson).permit(:title, :content, :section_id, :lessons_completed, :completed)
+      params.require(:lesson).permit(:title, :content, :section_id, :lessons_completed, :completed, :video, :url, :thumbnail, documents: [])
     end
 
 end
