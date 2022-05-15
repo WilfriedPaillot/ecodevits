@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  after_initialize :set_approved_for_instructor, on: :create
+  after_initialize :set_approved_for_instructor, :if => :new_record?
   after_initialize :set_default_role, :if => :new_record?
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -8,13 +8,21 @@ class User < ApplicationRecord
 
   enum role: [:student, :instructor, :admin]
 
+  #? Must changes for classname
+    #? has_many :followed_trainings , through: :user_trainings, source: :training
+    #? has_many :followed_sections , through: :user_trainings, source: :section
+    #? has_many :followed_lessons , through: :user_trainings, source: :lesson
+
+    #? has_many :authored_trainings, class_name: "Training", foreign_key: "author_id"
+    #? has_many :authored_sections, class_name: "Section", foreign_key: "author_id"
+    #? has_many :authored_lessons, class_name: "Lesson", foreign_key: "author_id"
+
   # Associations for instructor
   has_many :trainings, dependent: :destroy
   has_many :sections, through: :trainings
   has_many :lessons, through: :sections
   # Associations for student
   has_many :user_trainings, dependent: :destroy
-
   has_many :trainings, through: :user_trainings
   has_many :sections, through: :trainings
   has_many :lessons, through: :sections
@@ -26,7 +34,7 @@ class User < ApplicationRecord
     uniqueness: { case_sensitive: false }, on: :create
     validates :first_name, :last_name, allow_blank: true, 
     length: { minimum: 2, maximum: 20, message: "doit être compris entre 2 et 20 caractères" }, 
-    format: { with: /\A[a-zA-Z\']+\z/ , message: "ne doit contenir que des lettres" },
+    format: { with: /\A[a-zA-Z\s\-\']+\z/ , message: "ne doit contenir que des lettres" },
     on: :update
   validates :adress, allow_blank: true, 
     length: { maximum: 100, message: "doit être inférieur à 100 caractères" }, 
@@ -37,7 +45,7 @@ class User < ApplicationRecord
     on: :update
   validates :city, allow_blank: true, 
     length: { maximum: 25, message: "doit être inférieur à 25 caractères" }, 
-    format: { with: /\A[a-zA-Z\-]+\z/ , message: "ne doit contenir que des lettres" }, 
+    format: { with: /\A[a-zA-Z\-\'\s]+\z/ , message: "ne doit contenir que des lettres" }, 
     on: :update
 
   def active_for_authentication? 
@@ -47,6 +55,18 @@ class User < ApplicationRecord
   def inactive_message 
     approved? ? super : :not_approved
   end
+
+  # def excluding_admins
+  #   where.not(role: "admin")
+  # end
+
+  # def only_instructors
+  #   where(role: "instructor")
+  # end
+
+  # def ordered_by_role_and_last_name
+  #   order(:role, :last_name)
+  # end
 
   private
     def set_default_role
