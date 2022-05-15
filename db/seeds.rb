@@ -67,11 +67,13 @@ Training.create!(
     Lesson.create!(
       title: "Le HTML pour de bonnes bases",
       content: "HyperText Markup Language (HTML) est le code utilisé pour structurer une page web et son contenu. Par exemple, le contenu de votre page pourra être structuré en un ensemble de paragraphes, une liste à puces ou avec des images et des tableaux de données. Comme le suggère le titre, cet article vous fournit les bases de compréhension du HTML et de ses fonctions.",
+      url: 'https://www.youtube.com/watch?v=8FqZZrbnwkM',
       section_id: Section.last.id
     )
     Lesson.create!(
       title: "Le CSS, l'art de mettre en forme",
       content: "CSS est l'un des langages principaux du Web ouvert et a été standardisé par le W3C. Ce standard évolue sous forme de niveaux (levels), CSS1 est désormais considéré comme obsolète, CSS2.1 correspond à la recommandation et CSS3, qui est découpé en modules plus petits, est en voie de standardisation.",
+      url: 'https://www.youtube.com/watch?v=qTN9bNaBCK8',
       section_id: Section.last.id
     )
   Section.create!(
@@ -83,12 +85,14 @@ Training.create!(
         title: "Le Javascript en partant de ZERO 1/2",
         content: "Le Javascript est un langage de programmation informatique qui permet de créer des interfaces interactives. Il est utilisé pour créer des interfaces dynamiques et interactives. Il est utilisé pour créer des interfaces interactives et dynamiques. Il est utilisé pour créer des interfaces dynamiques et interactives.\n
         Nous verrons les fondamentaux du langage et concluerons par la réalisation d'un projet de calculatrice.",
+        url: 'https://www.youtube.com/watch?v=9OJLxDxyNg4',
         section_id: Section.last.id
     )
     Lesson.create!(
         title: "Le Javascript en partant de ZERO 2/2",
         content: "Du DOM (Document Object Model), c'est l'interface de base entre le navigateur et le document. Il permet de manipuler le document, de créer des éléments, de les manipuler, de les manipuler, etc.\n
         Ce cours vous montrera comment manipuler le DOM pour dynamiser un site web et ce concluera par la création d'un petit projet de compteur de bulles",
+        url: 'https://www.youtube.com/watch?v=6q-zt0aQ74U',
         section_id: Section.last.id
     )
 
@@ -113,6 +117,7 @@ Training.create!(
       The Rails philosophy includes two major guiding principles:\n
       Don't Repeat Yourself: DRY is a principle of software development which states that \"Every piece of knowledge must have a single, unambiguous, authoritative representation within a system\". By not writing the same information over and over again, our code is more maintainable, more extensible, and less buggy.
       Convention Over Configuration: Rails has opinions about the best way to do many things in a web application, and defaults to this set of conventions, rather than require that you specify minutiae through endless configuration files.",
+      url: 'https://www.youtube.com/watch?v=zppMfm4fuxM',
       section_id: Section.last.id
     )
     Lesson.create!(
@@ -120,6 +125,7 @@ Training.create!(
       content: "En résumé : le fichier routes.rb est ni plus ni moins que le routeur de ton application Rails. Comme on te l'avait expliqué lors de la présentation du modèle MVC, le routeur va dire : \"telle requête HTTP (une requête est définie par un verbe GET/POST/PUT/etc. et une URL) doit renvoyer l'utilisateur vers telle méthode Ruby de tel controller\". \n
       Ces méthodes Ruby, au sein du controller, feront ensuite leur travail d'interroger (ou non) des models pour finalement construire une view qu'on affichera à l'utilisateur.\n
       Je te remets le schéma d'une app en MVC pour que tu resitues bien tout ça !",
+      url: 'https://www.youtube.com/watch?v=sAi1r8tzzS4',
       section_id: Section.last.id
     )
     Lesson.create!(
@@ -128,6 +134,7 @@ Training.create!(
       Après, j'imagine que tu dois te dire que ton cerveau va exploser, que tu es loin d'être autonome : si je te demandais de refaire toutes les routes d'un gros site comme The Hacking Project, tu ferais un joli \"lol nope\". \n
       C'est normal, il te manque une info importante que l'on verra demain : quelles sont les bonnes pratiques pour faire des routes propres \"The Rails Way™ \". \n
       Patience, on va y venir.",
+      url: 'https://www.youtube.com/watch?v=sAi1r8tzzS4',
       section_id: Section.last.id
     )
     Lesson.create!(
@@ -140,6 +147,7 @@ Training.create!(
       l’optimisation en vitesse\n
       Forcément, ces deux objectifs sont différents et difficilement compatibles : dur d’avoir du code qui s’exécute rapidement si ce dernier est bien rangé dans 40 dossiers et 50 fichiers. 
       C’est pour cela que les langages de programmation web ont pour la majorité une solution de gestion de CSS, JS et images. Rails a l’Asset Pipeline, une solution efficace qui a fait ses preuves depuis quelques années et qui a inspiré d’autres outils de gestion d’assets par la suite.",
+      url: 'https://www.youtube.com/watch?v=fP64Wvz13AM',
       section_id: Section.last.id
     )
 
@@ -162,12 +170,14 @@ Training.create!(
           title: "L’accessibilité numérique à toutes les étapes d’un projet",
           content: "Vous avez besoin de mieux comprendre l’accessibilité numérique et/ou de savoir comment la prendre en compte à votre niveau  ? Nous sommes très fiers de vous annoncer la création de notre nouvelle formation en ligne «  L’accessibilité numérique à toutes les étapes d’un projet  ».\n
           Pour l’occasion, nous vous partageons ici la vidéo d’introduction à l’accessibilité numérique du premier module. N’hésitez pas à la relayer/partager pour sensibiliser autour de vous.",
+          url: 'https://www.youtube.com/watch?v=e9dgLfpcE9M',
           section_id: Section.last.id
         )
         Lesson.create!(
           title: "Les bases de l'accessibilité",
           content: "Lorsqu’un site ou un outil web est bien conçu et bien codé, les personnes handicapées peuvent l’utiliser. Cependant, beaucoup de sites et d’outils développés actuellement contiennent des problèmes d’accessibilité, ce qui les rend dificiles ou impossibles à utiliser par certaines personnes.\n
           Rendre le web accessible est un avantage pour les internautes, les entreprises et la société. Les standards du web internationaux définissent ce qui est nécessaire pour l’accessibilité.",
+          url: 'https://www.youtube.com/watch?v=z68N3VrA9h4',
           section_id: Section.last.id
         )
       Section.create!(
@@ -184,6 +194,7 @@ Training.create!(
           utilisable : le contenu doit être accessible tant grâce à une souris ou assimilé (trackpad par exemple) mais également grâce au clavier via une navigation par tabulation ;\n
           compréhensible : les textes doivent être lisibles en permanence ;\n
           robuste : le contenu doit être accessible quel que soit le support sur lequel il est consulté.",
+          url: 'https://www.youtube.com/watch?v=vvLoYCq9uPw',
           section_id: Section.last.id
         )
       
