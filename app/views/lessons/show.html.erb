@@ -3,5 +3,13 @@
 <h2><%= @lesson.title %></h2>
 <p><%= @lesson.content %></p>
 
+      <% if @lesson.video.attached? %>
+        <%= video_tag(url_for(@lesson.video), controls: '', width: '100%') %>
+      <%else %>
+        <div class="ratio ratio-16x9">
+          <iframe src="https://www.youtube.com/embed/<%= @lesson.url[32..42] %>" title="Video '<%= @lesson.title %>'" allowfullscreen></iframe>
+        </div>
+      <% end %>
+
 <%= link_to "Suivant", user_training_path(current_user.user_trainings.find_by(training_id: @training.id, user_id: current_user.id))+"?lesson=#{@lesson.id}", method: :patch %>
 <%= link_to "Retour à la liste", dashboard_index_path %>
