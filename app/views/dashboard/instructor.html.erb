@@ -20,15 +20,30 @@
 
   <h3>Vos formations en cours</h3>
   <% @followed_trainings.each do |followed_training|  %>
+  <ul>
     <% unless followed_training.completed == 100 %>
-      <%= followed_training.training.title %>
-      <%= followed_training.completed == 0 ? "Commencer" : "Poursuivre" %>
+      <li>
+        <h4><%= followed_training.training.title %></h4> 
+        <% if followed_training.completed == 0 %>
+          <!-- Route to first lesson of training -->
+          <%= link_to "Commencer" %>
+        <% else %>
+          <!-- Route to first lesson after last added to completed_lessons -->
+          <%= link_to "Continuer" %>
+        <% end %>
+      </li>
     <% end %>
+  </ul>
   <%end%>
 
   <h3>Vos formations terminées</h3>
-  <% @followed_trainings.each do |followed_training|  %>
-    <%= followed_training.training.title if followed_training.completed == 100 %>
-    <%= "Aucune formation terminée" if !followed_training.completed? %>
-  <% end %>
+    <% if @followed_trainings.map {|training| training.completed == 100}.include?(true) %>
+    <ul>
+      <% @followed_trainings.each do |followed_training|  %>
+        <li><%= followed_training.training.title%></li>
+      <% end %>
+    </ul>
+    <%else%>
+      <%= "Aucune formation terminée"  %>
+    <% end %>
 
