@@ -66,3 +66,6 @@ gem "database_cleaner", "~> 2.0"
 gem "faker", "~> 2.20"
 
 gem "active_storage_validations", "~> 0.9.8"
+
+gem "bootstrap", "~> 5.1"
+gem "jquery-rails", "~> 4.4"
