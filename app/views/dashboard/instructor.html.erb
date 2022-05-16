@@ -1,2 +1,34 @@
-<h1>Dashboard#instructor</h1>
-<p>Find me in app/views/dashboard/instructor.html.erb</p>
+<h1>Dashboards#instructor</h1>
+
+<h2> Bienvenue sur votre dashboard
+  <%=current_user.first_name.capitalize%> <%=current_user.last_name.upcase%> 
+</h2>
+
+<h3>Vos formations publiées</h3>
+  <% @published_trainings.each do |published_training|  %>
+    <%= published_training.title %>
+    <%= link_to "Détails" , training_path(published_training.id) %>
+  <%end%>
+
+<h3>Créer une formation</h3>
+<%= link_to 'Créer une formation', new_training_path %>
+<hr>
+
+<h3>Vos formations suivies</h3>
+  <%= @followed_trainings.each do |followed_training|  %>
+  <%end%>
+
+  <h3>Vos formations en cours</h3>
+  <% @followed_trainings.each do |followed_training|  %>
+    <% unless followed_training.completed == 100 %>
+      <%= followed_training.training.title %>
+      <%= followed_training.completed == 0 ? "Commencer" : "Poursuivre" %>
+    <% end %>
+  <%end%>
+
+  <h3>Vos formations terminées</h3>
+  <% @followed_trainings.each do |followed_training|  %>
+    <%= followed_training.training.title if followed_training.completed == 100 %>
+    <%= "Aucune formation terminée" if !followed_training.completed? %>
+  <% end %>
+

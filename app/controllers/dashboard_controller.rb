@@ -22,6 +22,8 @@ class DashboardController < ApplicationController
   end
 
   def instructor
+    @published_trainings = Training.where(user_id: current_user.id)
+    @followed_trainings = current_user.user_trainings
   end
 
   def admin
