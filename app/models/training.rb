@@ -3,6 +3,7 @@ class Training < ApplicationRecord
   has_many :sections, dependent: :destroy
   has_many :lessons, through: :sections
   has_many :user_trainings
+  has_one_attached :thumbnail
 
   # Validates presence of minimum data for a training
   validates :title, :description, :user_id, presence: { message: "doit être renseigné" }
@@ -15,5 +16,4 @@ class Training < ApplicationRecord
   # Returns the first 3 trainings for the homepage
   scope :latest, ->(n) { order(:created_at).reverse_order.take(n) }
   scope :order_desc, -> { order(:created_at).reverse_order }
-
 end
