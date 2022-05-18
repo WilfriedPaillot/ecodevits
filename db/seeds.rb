@@ -54,11 +54,15 @@ puts "\n"*2
 
 instructors = User.where(role: 1).ids
 
-Training.create!(
+t = Training.new(
   title: "Formation de développeur web",
   description: "Cette formation vous permettra de développer votre compétences en développement web.",
-  user_id: instructors.sample,
-)
+  user_id: instructors.sample)
+  t.thumbnail.attach(
+    io: File.open(Rails.root.join('app', 'assets', 'images' , 'dev_web_durable.jpg')), 
+    filename: 'dev_web_durable.jpg')
+  t.save!
+
   Section.create!(
     title: "Introduction aux fondamentaux du Web",
     description: "Cette section vous permettra de développer votre compétences en HTML, CSS.",
@@ -100,11 +104,14 @@ p '*' * 20
 p "La formation #{Training.last.title.upcase} a été créée"
 p '*' * 20
 
-Training.create!(
+t = Training.new(
   title: "Formation Ruby on Rails",
   description: "Cette formation vous permettra de développer votre compétences dans le développement web avec Ruby on Rails.",
-  user_id: instructors.sample,
-)
+  user_id: instructors.sample)
+  t.thumbnail.attach(
+    io: File.open(Rails.root.join('app', 'assets', 'images' , 'ror.png')), 
+    filename: 'ror.png')
+  t.save!
   Section.create!(
     title: "Introduction",
     description: "Cette section vous permettra d'aborder le framework Ruby on Rails.",
@@ -156,11 +163,14 @@ Training.create!(
     p '*' * 20
 
 
-    Training.create!(
+  t = Training.new(
       title: "Accessibilité et SEO",
       description: "Cette formation vous permettra de développer votre compétences en SEO et Accessibilité.",
-      user_id: instructors.sample,
-    )
+      user_id: instructors.sample)
+      t.thumbnail.attach(
+        io: File.open(Rails.root.join('app', 'assets', 'images' , 'accessibility.webp')), 
+        filename: 'accessibility.webp')
+      t.save!
       Section.create!(
         title: "Accessibilité",
         description: "Cette section vous permettra d'aborder les notions d'accessibilité appliquée au numérique.",
