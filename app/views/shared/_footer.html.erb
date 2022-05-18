@@ -1,0 +1,62 @@
+<footer class="container pt-5">
+  <hr>
+  <div class="row">
+    <div class="col-12 d-flex flex-column mb-5 col-lg-4 pt-2 px-3">
+      <p class="mb-2 fw-bold">A propos du projet</p>
+      <p class="text-muted">
+        La réalisation du projet de mon dossier est la création d’un site
+        internet nommé EcoDevIT dans le cadre de l’ECF donnée pour mon
+        centre de formation. <br>
+        Le principe fondamental de ce site est de proposer des formations ouvertes
+        à tous, autour du développement éco-responsable et de l’accessibilité web.
+        Ces formations seront proposées par des instructeurs indépendants,
+        inscrits à la plateforme, dont les accès auront été validés par les
+        administrateurs du site.
+      </p>
+    </div>
+    <div class="col-12 d-flex flex-column mb-5 col-lg-4 pt-2 px-3">
+      <p class="mb-2 fw-bold">Site</p>
+      <%= link_to 'Formations', trainings_path, class:"text-muted fw-normal mb-2" %>
+      <%= link_to 'Nous rejoindre', root_path, class:"text-muted fw-normal mb-2" %>
+      <%= link_to 'Contact', static_pages_contact_path, class:"text-muted fw-normal mb-2" %>
+      <%= link_to 'A propos', static_pages_about_path, class:"text-muted fw-normal mb-2" %>
+      <%= link_to 'FAQ', root_path, class:"text-muted fw-normal mb-2" %>
+    </div>
+    <div class="col-12 d-flex flex-column mb-5 col-lg-4 pt-2 px-3">
+      <p class="mb-2 fw-bold">Raccourcis</p>
+      <%unless user_signed_in? %>
+        <%= link_to 'Formations', trainings_path, class:"text-muted fw-normal mb-2" %>
+        <%= link_to 'Se connecter', new_user_session_path, class:"text-muted fw-normal mb-2" %>
+      <%else%>
+        <%= link_to 'Dashboard', dashboard_index_path, class:"text-muted fw-normal mb-2" %>
+        <%= link_to 'Mon profil', edit_user_registration_path(current_user), class:"text-muted fw-normal mb-2" %>
+        <%= link_to 'Se déconnecter', destroy_user_session_path, method: :delete, class:"text-muted fw-normal mb-2" %>
+      <%end%>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 d-flex flex-column col-md-6">
+      <div class="d-flex flex-column justify-content-start align-items-start">
+        <p class="m-0 text-muted small mb-3">Copyright © 2022 EcoDevIT. Tous droits réservés</p>
+        <div class="m-0">
+          <a class="text-muted" href="https://github.com/ecodevit" rel="noopener" target="_blank">
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 d-flex flex-column col-md-6 justify-content-end align-items-start align-items-md-end">
+      <p class="text-muted small flex-center">Me contacter? 
+        <span>
+          <%= link_to 'https://www.linkedin.com/in/wilfried-paillot/', class:"text-muted fw-bold mx-1", target:"_blank" do %>
+            Linkedin
+          <%end%>
+        </span>
+        <span>
+          <%= link_to 'https://github.com/WilfriedPaillot', class:"text-muted fw-bold mx-1", target:"_blank" do %>
+            Github
+          <%end%>
+        </span>
+      </p>
+    </div>
+  </div>
+</footer>
