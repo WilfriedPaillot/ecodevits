@@ -20,8 +20,11 @@
     <% end %>
   </ul>
 <% end %>
-  <%= link_to 'Rejoindre la formation', user_trainings_path(training_id: @training.id), method: :post %>
 
+  <%= link_to_unless(user_signed_in? && current_user.trainings.include?(@training), 'Rejoindre la formation', user_trainings_path(training_id: @training.id), method: :post ) do %>
+    <%= link_to 'Reprendre', training_section_lesson_path(@training, @training.sections.first, @training.sections.first.lessons.first), class: 'btn btn-primary' %>
+  <% end %>
+  
   <p><%= link_to "Retour à la liste", catalogue_index_path %></p>
   
   <%if current_user == @training.user%>

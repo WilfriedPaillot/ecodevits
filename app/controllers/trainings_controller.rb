@@ -51,7 +51,7 @@ class TrainingsController < ApplicationController
     end
 
     def training_params
-      params.require(:training).permit(:title, :description, :user_id)
+      params.require(:training).permit(:title, :description, :user_id, :thumbnail)
     end
 
     def can_edit_training?
