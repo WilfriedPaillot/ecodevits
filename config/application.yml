@@ -1,0 +1,23 @@
+development: 
+  cloud_name: "ecodevit"
+  api_key: <%= ENV['CLOUDINARY_API_KEY'] %>
+  api_secret: <%= ENV['CLOUDINARY_SECRET_ACCESS_KEY'] %>
+  secure: "true"
+  enhance_image_tag: "true"
+  static_file_support: "false"
+
+staging: 
+  cloud_name: "ecodevit"
+  api_key: <%= ENV['CLOUDINARY_API_KEY'] %>
+  api_secret: <%= ENV['CLOUDINARY_SECRET_ACCESS_KEY'] %>
+  secure: "true"
+  enhance_image_tag: "true"
+  static_file_support: "true"
+
+production:
+  cloud_name: "ecodevit"
+  api_key: <%= ENV['CLOUDINARY_API_KEY'] %>
+  api_secret: <%= ENV['CLOUDINARY_SECRET_ACCESS_KEY'] %>
+  secure: "true"
+  enhance_image_tag: "true"
+  static_file_support: "true"
