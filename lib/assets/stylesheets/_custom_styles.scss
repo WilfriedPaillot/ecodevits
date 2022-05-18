@@ -1,0 +1,31 @@
+// Global styles
+.dropdown-menu[data-bs-popper] {
+  top: 100%;
+  right: 0;
+  left: auto;
+  margin-top: 0.125rem;
+}
+
+.highlight_word {
+  text-decoration: underline;
+  text-decoration-style: solid;
+  color : #24aa5c;
+}
+
+.section_link {
+  color: #24aa5c;
+  text-decoration: none;
+  &:hover {
+    color: #068a3d;
+    text-decoration: underline;
+  }
+}
+
+.training_card:hover {
+  transform: scale(1.05);
+  transition: all 0.4s ease-in-out;
+}
+
+.dropdown-toggle::after {
+  display: none;
+}
