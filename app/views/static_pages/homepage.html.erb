@@ -1,17 +1,220 @@
-<h1>StaticPages#homepage</h1>
-<p>Find me in app/views/static_pages/homepage.html.erb</p>
+<%# hero_header %>
+<section class="row pb-5">
+  <div class="col-12 col-md-10 col-lg-9 mx-auto">
+    <div class="text-center mb-5">
+      <h1 class="mb-4 mx-auto display-1 fw-bold">
+        <span class="d-block">EcoDevIT</span>
+        <span class="highlight_word">make it green</span>
+      </h1>
+      <p class="mx-auto lead text-lg-nice">
+        <span class="d-block"> La seule plateforme e-learning gratuite, participative et responsable </span>
+        <span class="d-block"> Enrichissez votre savoir-faire et éco-développez pour tous</span>
+      </p>
+    </div>
+    <%unless user_signed_in? %>
+    <div class="d-flex flex-column flex-lg-row justify-content-center align-items-center w-100">
+      <%= link_to 'Inscription', new_user_registration_path, class: "btn btn-lg btn-success text-white flex-center mx-auto mx-lg-2 mb-2 w-100", style:"max-width:280px"%>
+      <%= link_to 'Connexion', new_user_session_path, class: "btn btn-lg btn-outline-success flex-center mx-auto mx-lg-2 mb-2 w-100", style:"max-width:280px"%>
+    </div>
+    <%end%>
+  </div>
+</section>
 
-<% @latest_trainings.each do |training| %>
-  <ul>
-    <li>
-      <div id=""><%= training.title %></div>
-      <div id=""><%= training.description %></div>
-      <div id="">
-        Ajoutée le <%= training.created_at.strftime("%d/%m/%Y à %H:%M") %>
-        par <%= training.user.email.slice(0, training.user.email.index('@')) %> 
+<%# Présentation %>
+<section class="my-5">
+  <div class="row justify-content-center align-items-center mt-5 pb-5">
+    <div class="col-12 col-md-5 d-flex flex-column mb-3 order-md-2">
+      <h2 class="mb-4 display-5">
+        <span class="d-block fw-800">Un e-learning,</span>
+        <span class="d-block fw-800">enfin accessible</span>
+      </h2>
+      <div>
+        <span>
+          <p>
+          En tant que fournisseur de contenu à but pédagogique, notre objectif principal est de concevoir un e-learning qui corresponde à vos besoins. <br>
+          Ainsi, EcoDevIT palie aux situations de travail et de formation non adaptées par des solutions telles que le sous-titrage, un choix de couleur et de police
+          adapté aux malvoyants, etc. <br>
+          C'est par ces considérations qu'<strong>accessible</strong> prend tout son sens : réalisable, abordable par et pour tout le monde !
+          </p>
+        </span>
       </div>
-      <%= link_to 'Consulter', catalogue_path(training.id) %>
+    </div>
+    <div class="col-12 col-md-7 d-flex flex-column">
+      <img width="80%" height="auto" src="https://res.cloudinary.com/bdavidxyz-com/image/upload/v1637305459/bootstrap/Pages2.png" loading="lazy">
+    </div>
+  </div>
 
-    </li>
-  </ul>
-<% end %>
+  <div class="row justify-content-center align-items-center mt-5 pb-5">
+    <div class="col-12 col-md-5 d-flex flex-column mb-3 ">
+      <h2 class="mb-4 display-5 fw-800">
+        <span class="d-block fw-800">Des contenus dédiés,</span>
+        <span class="d-block fw-800">à l'éco-développement</span>
+      </h2>
+      <div>
+        <span>
+          <p>
+            Les membres d'EcoDevIT se lancent dans de nouvelles carrières, progressent dans leur domaine et enrichissent leur vie.
+          </p>
+        </span>
+      </div>
+    </div>
+    <div class="col-12 col-md-7 d-flex flex-column">
+      <div class="text-lg-end">
+        <img width="80%" height="auto" src="https://res.cloudinary.com/bdavidxyz-com/image/upload/v1637503750/bootstrap/admin_crudZ3.png" loading="lazy">
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-center align-items-center mt-5 pb-5">
+    <div class="col-12 col-md-5 d-flex flex-column mb-3 order-md-2">
+      <h2 class="mb-4 display-5">
+        <span class="d-block fw-800">Une sélection d'experts,</span>
+        <span class="d-block fw-800">du contenu offert</span>
+      </h2>
+      <div>
+        <span>
+          <p> Nos formateurs du monde entier donnent des cours à déjà <span class="text-danger">X</span>  participants sur EcodevIT. 
+          </p>
+          <p>
+          Grâce à vous, nous offrons les compétences nécessaires à nos membres pour évoluer dans leur carrière et devenir vos futurs partenaires.
+          </p>
+          <%= link_to 'Devenez contributeur', root_path, class:"section_link" %>
+        </span>
+      </div>
+    </div>
+    <div class="col-12 col-md-7 d-flex flex-column">
+      <img width="80%" height="auto" src="https://res.cloudinary.com/bdavidxyz-com/image/upload/v1637305459/bootstrap/Pages2.png" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<%# Latest trainings %>
+<section class="my-5">
+  <div class="row justify-content-between">
+    <div class="col-12 my-5 flex-center text-center flex-column">
+      <h2 class="display-5 fw-800">Dernières formations</h2>
+    </div>
+
+    <% @latest_trainings.each do |training| %>
+      <div class="col-12 col-md-6 col-lg-4 d-flex mb-4">
+        <div class="training_card card p-4 justify-content-between align-items-start shadow">
+          <%= image_tag(training.thumbnail, class: "card-img-top", alt: "Thumbnail #{training.title}", height: "175px") if training.thumbnail.attached?%>
+            <h5 class="card-title mt-2"><%= training.title %></h5>
+            <h6 class="card-subtitle fst-italic fw-light">Par <%= training.user.email.slice(0, training.user.email.index('@')) %></h6>
+            <div class="card-body p-0 mt-3">
+              <p><%= training.description %></p>
+            </div>
+            <%= link_to 'Consulter', catalogue_path(training.id), class: "card-link section_link" %>
+        </div>
+      </div>
+    <%end%>
+
+    <div class="col-12 flex-center">
+      <%= link_to 'Plus de formations', catalogue_index_path, class: "fw-bold section_link" %>
+    </div>
+  </div>
+</section>
+
+<%# Ready to go %>
+<section class="py-5">
+  <div class="row">
+    <div class="col-12 col-lg-8 mx-md-auto text-center">
+      <%= image_tag('logo.svg', alt:"Logo EcoDevIT", loading: "lazy") %>
+    </div>
+    <div class="col-12 col-lg-8 mx-md-auto text-center mb-4">
+      <h2 class="display-5 ">Prêt à nous rejoindre ?</h2>
+      <h4 class="display-6 fw-800">Devenez ce que vous voulez</h4>
+      <p class="mb-0 mx-auto lead" style="max-width:680px">100% gratuit - Ouvert aux contributeurs</p>
+    </div>
+  <% unless user_signed_in? && current_user.admin? %>
+    <div class="col-12 col-md-10 col-lg-8 mx-md-auto text-center">
+      <div class="d-flex flex-column flex-lg-row justify-content-center align-items-center w-100">
+        <% unless user_signed_in? && current_user.student? %>
+          <%= link_to 'Membres', new_user_registration_path, class: "btn btn-lg btn-success text-white flex-center mx-auto mx-lg-2 mb-2 w-100", style:"max-width:280px"%>
+          <%= link_to 'Contributeur', new_user_registration_path, class: "btn btn-lg btn-outline-success flex-center mx-auto mx-lg-2 mb-2 w-100", style:"max-width:280px"%>
+        <%else%>
+          <%= link_to 'Contributeur', new_user_registration_path, class: "btn btn-lg btn-outline-success flex-center mx-auto mx-lg-2 mb-2 w-100", style:"max-width:280px"%>
+        <% end %>
+      </div>
+    </div>
+  <%end%>
+  </div>
+</section>
+
+<%# Testimonial %>
+<section class="mb-5">
+  <div class="row justify-content-center">
+    <div class="col-12 my-5 flex-center text-center flex-column">
+      <h2 class="display-5 fw-800">Faites comme eux, <span class="highlight_word">développez-vous</span></h2>
+    </div>
+
+    <div id="carousel_homepage" class="carousel slide carousel-fade" data-bs-ride="carousel">
+      <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div class="row">
+              <div class="col-12 col-md-6 col-lg-4 mb-4">
+                <div class="card p-4 justify-content-between align-items-start shadow">
+                  <h5 class="card-title">Accessibilité et SEO</h5>
+                  <p>Je suis sur la section SEO de ce cours en ce moment et pour l'instant je dois bien me rendre à l'évidence 
+                  que ce cours est un des plus complet et un des mieux expliqué que j'ai pu suivre depuis 5 ans. <br>
+                  Un grand bravo à l'équipe EcoDevIT
+                  </p>
+                  <p class="m-0 text-dark fw-bold">David N.</p>
+                </div>
+              </div>
+              <div class="col-12 col-md-6 col-lg-4 mb-4">
+                <div class="card p-4 justify-content-between align-items-start shadow">
+                  <h5 class="card-title">Ruby on Rails</h5>
+                  <p>Les vidéos de cette formation valent toutes les pseudo-formations Udemy que j'ai pu acheter.<br>
+                  Merci au formateur pour ce cours qui m'a permis de découvrir le monde du développement web et de me faire progresser dans ce domaine.
+                  </p>
+                  <p class="m-0 text-dark fw-bold">Josselin J.</p>
+                </div>
+              </div>
+              <div class="col-12 col-md-6 col-lg-4 mb-4">
+                <div class="card p-4 justify-content-between align-items-start shadow">
+                  <h5 class="card-title">Développement Web</h5>
+                  <p>Wallah, c'est vraiment une formation de ouf, je vais enfin pouvoir me débrouiller dans ce domaine.</p>
+                  <p class="m-0 text-dark fw-bold">Maitre Gibbz</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="row">
+              <div class="col-12 col-md-6 col-lg-4 mb-4">
+                <div class="card p-4 justify-content-between align-items-start shadow">
+                  <h5 class="card-title">Accessibilité et SEO</h5>
+                  <p>Grâce à EcoDevIT j'ai pu découvrir les concepts de SEO et d'accessibilité et compléter à merveille mes acquis en développement web.</p>
+                  <p class="m-0 text-dark fw-bold">Yassine R.</p>
+                </div>
+              </div>
+              <div class="col-12 col-md-6 col-lg-4 mb-4">
+                <div class="card p-4 justify-content-between align-items-start shadow">
+                  <h5 class="card-title">Accessibilité et SEO</h5>
+                  <p>Je suis sur la section SEO de ce cours en ce moment et pour l'instant je dois bien me rendre à l'évidence 
+                  que ce cours est un des plus complet et un des mieux expliqué que j'ai pu suivre depuis 25 ans. <br>
+                  Un grand bravo à l'équipe EcoDevIT
+                  </p>
+                  <p class="m-0 text-dark fw-bold">Jean-Baptiste V.</p>
+                </div>
+              </div>
+              <div class="col-12 col-md-6 col-lg-4 mb-4">
+                <div class="card p-4 justify-content-between align-items-start shadow">
+                  <h5 class="card-title">Ruby on Rails</h5>
+                  <p>Les vidéos de cette formation valent toutes les pseudo-formations Udemy que j'ai pu acheter.<br>
+                  Merci au formateur pour ce cours qui m'a permis de découvrir le monde du développement web et de me faire progresser dans ce domaine.
+                  </p>
+                  <p class="m-0 text-dark fw-bold">Wilfried P.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+
+    <div class="col-12 flex-center">
+      <%= link_to 'Vous aussi, partagez votre expérience', root_path, class:"fw-bold section_link" %>
+    </div>
+</section>
