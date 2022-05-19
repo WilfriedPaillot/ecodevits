@@ -36,12 +36,13 @@
 <%# Présentation %>
 <section class="my-5">
   <% @trainings.each do |training| %>
-    <div class="row justify-content-center align-items-center mt-5 py-5">
-    <%if training.id.even? %>
-      <div class="col-12 col-md-5 d-flex flex-column mb-3 order-md-2">
-    <%else%>
-      <div class="col-12 col-md-5 d-flex flex-column mb-3">
-    <%end%>
+    <div class="row justify-content-center align-items-center mt-lg-5 mb-5 py-lg-5">
+      <% img_order = training.id.even? ? 2 : 1 %>
+      <div class="col-12 col-md-7 d-flex flex-column mb-3 px-3 order-md-<%=img_order%>">
+        <%= cl_image_tag(training.thumbnail.key, class: "img-fluid img_presentation mx-auto rounded-3 shadow", loading:"lazy", alt:"Thumbnail #{training.title}") %>
+      </div>
+      <% txt_order = training.id.even? ? 1 : 2 %>
+      <div class="col-12 col-md-5 d-flex flex-column mb-3 order-md-<%= txt_order %>">
         <h2 class="mb-4 display-5"><%= training.title %></h2>
         <div>
             <p><%= training.description %></p>
@@ -50,14 +51,6 @@
             </p>
         </div>
         <%= link_to "Plus de détails", catalogue_path(training), class:'section_link' %>
-      </div>
-      <div class="col-12 col-md-7 d-flex flex-column px-3">
-        <%= cl_image_tag(training.thumbnail.key, class: "mx-auto rounded-3 shadow", loading:"lazy", alt:"Thumbnail #{ training.title}",
-            :aspect_ratio=>"1.0", 
-            :height=>350, 
-            :crop=>"limit" 
-            ) 
-        %>
       </div>
     </div>
   <%end%>
