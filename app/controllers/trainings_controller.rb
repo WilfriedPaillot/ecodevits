@@ -4,11 +4,15 @@ class TrainingsController < ApplicationController
   before_action :can_edit_training?, only: [:edit, :update, :destroy]
 
   def index
-    @trainings = Training.order_desc
-
-    # respond_to do |format|
-    #   format.html { render :index }
-    # end
+    unless params[:search].blank? || params[:search].empty?
+      @trainings = Training.search(params[:search]).order_desc
+        if @trainings.empty?
+          flash[:alert] = "Aucun résultat pour \"#{params[:search]}\""
+          @trainings = Training.order_desc
+        end
+    else
+      @trainings = Training.order_desc
+    end
   end
 
   def show
