@@ -2,8 +2,8 @@ class Training < ApplicationRecord
   belongs_to :user
   has_many :sections, dependent: :destroy
   has_many :lessons, through: :sections
-  has_many :user_trainings
-  has_one_attached :thumbnail
+  has_many :user_trainings, dependent: :destroy
+  has_one_attached :thumbnail, dependent: :destroy
 
   # Validates presence of minimum data for a training
   validates :title, :description, :user_id, presence: { message: "doit être renseigné" }
