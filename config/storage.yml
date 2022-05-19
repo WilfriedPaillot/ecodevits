@@ -8,3 +8,4 @@ local:
 
 cloudinary:
   service: Cloudinary
+  folder: ecodevit
