@@ -52,7 +52,27 @@
         <%= link_to "Plus de détails", catalogue_path(training), class:'section_link' %>
       </div>
       <div class="col-12 col-md-7 d-flex flex-column px-3">
-        <%= cl_image_tag(training.thumbnail.key, class: "img-fluid w-75 h-auto mx-auto rounded-3 shadow", loading:"lazy", alt:"Thumbnail #{ training.title}") %>
+        <%= cl_image_tag(url_for(training.thumbnail), class: "img-fluid w-75 h-auto mx-auto rounded-3 shadow", loading:"lazy", alt:"Thumbnail #{ training.title}") %>
+      </div>
+    </div>
+    
+    <div class="row justify-content-center align-items-center mt-5 py-5">
+    <%if training.id.even? %>
+      <div class="col-12 col-md-5 d-flex flex-column mb-3 order-md-2">
+    <%else%>
+      <div class="col-12 col-md-5 d-flex flex-column mb-3">
+    <%end%>
+        <h2 class="mb-4 display-5"><%= training.title %></h2>
+        <div>
+            <p><%= training.description %></p>
+            <p>Cette formation de <%= pluralize(training.sections.count, 'section') %> 
+              vous est offerte par <%= training.user.email.slice(0, training.user.email.index('@')) %>.
+            </p>
+        </div>
+        <%= link_to "Plus de détails", catalogue_path(training), class:'section_link' %>
+      </div>
+      <div class="col-12 col-md-7 d-flex flex-column px-3">
+        <%= cl_image_tag(training.thumbnail.key, :aspect_ratio=>"1.0", :height=>275, :crop=>"limit", class: "mx-auto rounded-3 shadow", loading:"lazy", alt:"Thumbnail #{ training.title}") %>
       </div>
     </div>
   <%end%>
