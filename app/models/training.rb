@@ -16,4 +16,10 @@ class Training < ApplicationRecord
   # Returns the first 3 trainings for the homepage
   scope :latest, ->(n) { order(:created_at).reverse_order.take(n) }
   scope :order_desc, -> { order(:created_at).reverse_order }
+
+  private
+  def self.search(search)
+    where("title ILIKE :param OR description ILIKE :param", param: "%#{search.downcase}%")
+  end
+  
 end

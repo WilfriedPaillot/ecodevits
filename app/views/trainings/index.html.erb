@@ -1,13 +1,59 @@
-<h1>Trainings list</h1>
+<%# hero_header %>
+<section class="row pt-4 pb-2">
+  <div class="col-12 col-md-10 col-lg-9 mx-auto">
+    <div class="text-center mb-5">
+      <h1 class="mb-4 mx-auto display-1 fw-bold">
+        <span class="d-block">EcoDevIT</span>
+        <span class="highlight_word">Catalogue de formations</span>
+      </h1>
+      <p class="mx-auto lead text-lg-nice">
+        <span class="d-block"> Retrouvez ici l'intégralité des formations publiées par nos experts </span>
+        <span class="d-block"> Apprenez sans compter !</span>
+      </p>
+    </div>
+    <%unless user_signed_in? %>
+    <div class="d-flex flex-column flex-lg-row justify-content-center align-items-center w-100">
+      <%= link_to 'Inscription', new_user_registration_path, class: "btn btn-lg btn-success text-white flex-center mx-auto mx-lg-2 mb-2 w-100", style:"max-width:280px"%>
+      <%= link_to 'Connexion', new_user_session_path, class: "btn btn-lg btn-outline-success flex-center mx-auto mx-lg-2 mb-2 w-100", style:"max-width:280px"%>
+    </div>
+    <%end%>
+  </div>
+</section>
 
-<div>
-  <p>Créer une formation</p>
-  <%= link_to "Créer une formation", new_training_path %>
-</div>
+<%# Search %>
+<hr>
+<section class="row py-3">
+  <div class="col-12 col-md-6">
+    <p class="m-0 fs-2 fw-lighter">Recherche par mots clés</p>
+      <%= form_tag(trainings_path, method: 'get', class:'d-flex mb-3') do %>
+        <%= text_field_tag :search, "", class:"form-control me-2" %>
+        <%= submit_tag 'Chercher', class:"btn btn-outline-success" %>
+      <% end %> 
+  </div>
+</section>
+<hr>
 
-<% @trainings.each do |training| %>
-  <h2><%= training.title %></h2>
-  <p><%= training.description %></p>
-  <p>Cette formation contient <%= pluralize(training.sections.count, 'section') %></p>
-  <%= link_to "Détails", catalogue_path(training) %>
-<%end%>
+<%# Présentation %>
+<section class="my-5">
+  <% @trainings.each do |training| %>
+    <div class="row justify-content-center align-items-center mt-5 pb-5">
+    <%if training.id.even? %>
+      <div class="col-12 col-md-5 d-flex flex-column mb-3 order-md-2">
+    <%else%>
+      <div class="col-12 col-md-5 d-flex flex-column mb-3">
+    <%end%>
+        <h2 class="mb-4 display-5"><%= training.title %></h2>
+        <div>
+            <p><%= training.description %></p>
+            <p>Cette formation de <%= pluralize(training.sections.count, 'section') %> 
+              vous est offert par <%= training.user.email.slice(0, training.user.email.index('@')) %>.
+            </p>
+        </div>
+        <%= link_to "Plus de détails", catalogue_path(training), class:'section_link' %>
+      </div>
+      <div class="col-12 col-md-7 d-flex flex-column">
+        <%= cl_image_tag(training.thumbnail.key, class: "img-fluid mb-3", loading:"lazy", alt:"Thumbnail #{ training.title}") %>
+      </div>
+    </div>
+  <%end%>
+</section>
