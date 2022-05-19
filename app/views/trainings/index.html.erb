@@ -36,7 +36,7 @@
 <%# Présentation %>
 <section class="my-5">
   <% @trainings.each do |training| %>
-    <div class="row justify-content-center align-items-center mt-5 py-5">
+    <div class="row justify-content-center align-items-center mt-5 py-5" style="max-height:350px">
     <%if training.id.even? %>
       <div class="col-12 col-md-5 d-flex flex-column mb-3 order-md-2">
     <%else%>
@@ -51,8 +51,8 @@
         </div>
         <%= link_to "Plus de détails", catalogue_path(training), class:'section_link' %>
       </div>
-      <div class="col-12 col-md-7 d-flex flex-column px-3">
-        <%= cl_image_tag(url_for(training.thumbnail), class: "img-fluid w-75 h-auto mx-auto rounded-3 shadow", loading:"lazy", alt:"Thumbnail #{ training.title}") %>
+      <div class="col-12 col-md-7 d-flex flex-column px-3 mh-100">
+        <%= cl_image_tag(url_for(training.thumbnail), class: "img-fluid mx-auto rounded-3 shadow", loading:"lazy", alt:"Thumbnail #{ training.title}") %>
       </div>
     </div>
     
