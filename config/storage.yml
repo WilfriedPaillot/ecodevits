@@ -8,4 +8,4 @@ local:
 
 cloudinary:
   service: Cloudinary
-  folder: ecodevit
+  folder: <%= Rails.env %>
