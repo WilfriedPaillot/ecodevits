@@ -2,6 +2,23 @@
 
 <h2><%= @training.title %></h2>
 
+<% if @training.thumbnail.attached? %>
+<p>.key
+<%= cl_image_tag(@training.thumbnail.key) %>
+</p>
+<p>w/o .key
+<%= cl_image_tag(@training.thumbnail) %>
+</p>
+<p>w/ url
+<%= cl_image_tag(url_for(@training.thumbnail)) %>
+</p>
+<p>w/o cl
+<%= image_tag(@training.thumbnail) %>
+</p>
+<% else %>
+<p>No image attached</p>
+<% end %>
+
 <p><%= @training.description %></p>
 <p>Cette formation compte <%= pluralize(@training.sections.count, 'section')%> </p>
 
