@@ -1,37 +1,59 @@
-<h1>Training detail</h1>
+<%# hero_header %>
+<section class="row pt-4 pb-2">
+  <div class="col-12 mx-auto">
+    <div class="text-center mb-3">
+      <h1 class="mb-4 mx-auto display-1 fw-bold">
+        <span class="d-block">EcoDevIT</span>
+        <span class="highlight_word"><%= @training.title %></span>
+      </h1>
+      <p class="mx-auto lead">
+        <span class="d-block"> Retrouvez ici le descriptif complet de cette formation </span>
+        <span class="d-block"> proposée par <%= @training.user.first_name.capitalize%> <%= @training.user.last_name.upcase%></span>
+      </p>
+    </div>
+  </div>
+</section>
 
-<h2><%= @training.title %></h2>
-
-<% if @training.thumbnail.attached? %>
-  <%= cl_image_tag(@training.thumbnail.key) %>
-<% end %>
-
-<p><%= @training.description %></p>
-<p>Cette formation compte <%= pluralize(@training.sections.count, 'section')%> </p>
-
-<% @training.sections.each do |section| %>
-  <ul>
-    <h3>
-      <%= section.title %>
-    </h3>
-    <p>
-      <%= section.description.chop %> en <%= pluralize(section.lessons.count, 'leçon')%> !
+<section class="row justify-content-center align-items-center my-3 py-lg-5">
+  <div class="col-12 col-lg-6 d-flex flex-column mb-3 px-3">
+    <%= cl_image_tag(@training.thumbnail.key, class: "img-fluid img_presentation mx-auto rounded-3 shadow", loading:"lazy", alt:"Thumbnail #{@training.title}") %>
+  </div>
+  <div class="col-12 col-lg-6 d-flex flex-column mb-3 px-3> ">
+    <h2 class="mb-4 display-5"><%= @training.title %></h2>
+    <p><%= @training.description %></p>
+    <p>Cette formation compte <%= pluralize(@training.sections.count, 'section')%> <br>
+    <%= link_to "Découvrir le contenu", catalogue_path(@training), id:'sectionDetailsLink', class:'section_link', remote: true %>
     </p>
-    <% section.lessons.each do |lesson| %>
-      <li>
-        <%= lesson.title %>
-      </li>
-    <% end %>
-  </ul>
-<% end %>
+  </div>
+</section>
 
-  <%= link_to_unless(user_signed_in? && current_user.trainings.include?(@training), 'Rejoindre la formation', user_trainings_path(training_id: @training.id), method: :post ) do %>
-    <%= link_to 'Reprendre', training_section_lesson_path(@training, @training.sections.first, @training.sections.first.lessons.first), class: 'btn btn-primary' %>
-  <% end %>
-  
-  <p><%= link_to "Retour à la liste", catalogue_index_path %></p>
-  
-  <%if current_user == @training.user%>
-    <%= link_to "Modifier", edit_training_path(@training) %>
-    <%= link_to "Supprimer", training_path(@training), method: :delete, data: { confirm: "Voulez-vous vraiment supprimer cette formation ?" } %>
+<section class="row" id="sectionDetails">
+<%# Ajax request %>
+</section>
+
+<section class="row my-5">
+  <%unless user_signed_in? %>
+    <div class="d-flex flex-column flex-lg-row justify-content-center align-items-center w-100">
+      <%= link_to 'Inscription', new_user_registration_path, class: "btn btn-lg btn-success text-white flex-center mx-auto mx-lg-2 mb-2 w-100", style:"max-width:280px"%>
+      <%= link_to 'Connexion', new_user_session_path, class: "btn btn-lg btn-outline-success flex-center mx-auto mx-lg-2 mb-2 w-100", style:"max-width:280px"%>
+    </div>
+  <%else%>
+    <div class="d-flex flex-column flex-lg-row justify-content-center align-items-center w-100">
+      <%= link_to_unless(user_signed_in? && current_user.trainings.include?(@training), 'Rejoindre la formation', user_trainings_path(training_id: @training.id), method: :post, class: "btn btn-lg btn-success flex-center mx-auto mx-lg-2 mb-2 w-100", style:"max-width:280px" ) do %>
+        <%= link_to 'Reprendre', training_section_lesson_path(@training, @training.sections.first, @training.sections.first.lessons.first), class: "btn btn-lg btn-success flex-center mx-auto mx-lg-2 mb-2 w-100", style:"max-width:280px" %>
+      <% end %>
+      <%= link_to "Retour à la liste", catalogue_index_path, class: "btn btn-lg btn-outline-success flex-center mx-auto mx-lg-2 mb-2 w-100", style:"max-width:280px" %>
+    </div>
+
+    <div class="mt-5">
+      <%if current_user == @training.user%>
+        <div class="d-flex flex-column justify-content-center align-items-center">
+        <p class="fs-3">Vos accès rapides <%= current_user.first_name.capitalize %></p>
+          <%= link_to "Editer", edit_training_path(@training), class: "btn btn-lg btn-outline-info flex-center mx-auto mx-lg-2 mb-2 w-100", style:"max-width:280px" %>
+          <%= link_to "Supprimer", training_path(@training), class: "btn btn-lg btn-outline-danger flex-center mx-auto mx-lg-2 mb-2 w-100", style:"max-width:280px", method: :delete, data: { confirm: "Voulez-vous vraiment supprimer cette formation ?" } %>
+        </div>
+      <%end%>
+    </div>
+
   <%end%>
+</section>
