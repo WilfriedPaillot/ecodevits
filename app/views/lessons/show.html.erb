@@ -1,15 +1,54 @@
-<h1>Lessons#show</h1>
+<%# hero_header %>
+<section class="row py-4">
+  <div class="col-12 mx-auto">
+    <div class="text-center mb-3">
+      <h1 class="mb-4 mx-auto display-1 fw-bold">EcoDevIT</h1>
+      <h2 class="highlight_word"><%= @lesson.title %></h2>
+    </div>
+  </div>
+</section>
 
-<h2><%= @lesson.title %></h2>
-<p><%= @lesson.content %></p>
+<section class="row my-5">
+  <div class="col-12">
+    <p>
+      <%= @lesson.content %>
+    </p>
+  </div>
+  <div class="col-12 p-5">
+    <% if @lesson.video.attached? %>
+      <%= video_tag(url_for(@lesson.video), controls: '', width: '100%') %>
+    <%else %>
+      <div class="ratio ratio-16x9 shadow">
+        <iframe src="https://www.youtube.com/embed/<%= @lesson.url[32..42] %>" title="Video '<%= @lesson.title %>'" allowfullscreen></iframe>
+      </div>
+    <% end %>
+  </div>
+  <div class="col-12 d-flex justify-content-end pe-5">
+    <%= link_to dashboard_index_path, class:"btn btn-outline-success me-3" do%>
+      <i class="bi bi-arrow-left px-3"></i>
+    <%end%>
+    <%= link_to user_training_path(current_user.user_trainings.find_by(training_id: @training.id, user_id: current_user.id))+"?lesson=#{@lesson.id}", method: :patch, class:"btn btn-success px-3" do%>
+      Suivante<i class="ms-3 bi bi-arrow-right"></i>
+    <%end%>
+  </div>
+</section>
 
-      <% if @lesson.video.attached? %>
-        <%= video_tag(url_for(@lesson.video), controls: '', width: '100%') %>
-      <%else %>
-        <div class="ratio ratio-16x9">
-          <iframe src="https://www.youtube.com/embed/<%= @lesson.url[32..42] %>" title="Video '<%= @lesson.title %>'" allowfullscreen></iframe>
-        </div>
+<section class="row mx-3 py-5">
+<hr>
+  <div class="col-12 pt-2">
+    <h3 class="text-center">Ressources complémentaires</h3>
+  </div>
+  <div class="col-12 pb-2">
+    <% if @lesson.documents.attached? %>
+      <% @lesson.documents.each do |resource| %>
+        <%= link_to url_for(resource), class:"btn btn-outline-primary mb-3" do %>
+          <%= resource.filename %>
+          <i class="bi bi-file-pdf px-3"></i>
+        <%end%>
       <% end %>
-
-<%= link_to "Suivant", user_training_path(current_user.user_trainings.find_by(training_id: @training.id, user_id: current_user.id))+"?lesson=#{@lesson.id}", method: :patch %>
-<%= link_to "Retour à la liste", dashboard_index_path %>
+    <% else %>
+      <p class="text-center">Aucune ressource n'est proposée pour cette leçon.</p>
+    <% end %>
+  </div>
+<hr>
+</section>
