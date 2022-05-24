@@ -1,3 +1,3 @@
 document.querySelector('#sectionDetails').innerHTML = '';
-document.querySelector('#sectionDetails').insertAdjacentHTML('afterbegin', '<%= j render 'trainings/section_details' %>');
+document.querySelector('#sectionDetails').insertAdjacentHTML('afterbegin', '<%= j render 'trainings/section_details', training: @training %>');
 document.querySelector('#sectionDetailsLink').innerHTML = '';

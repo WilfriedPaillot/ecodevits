@@ -1,5 +1,5 @@
-    <% @training.sections.each do |section| %>
-    <% bk = @training.sections.length > 1 ? 6 : 12 %>
+    <% training.sections.each do |section| %>
+    <% bk = training.sections.length > 1 ? 6 : 12 %>
     <div class="col-12 col-md-<%=bk%> d-flex flex-column mb-3 px-3">
       <div class="section_title">
         <h3><%= section.title %></h3>
