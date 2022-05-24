@@ -1,0 +1,43 @@
+<div class="accordion accordion-flush mb-5" id="accordionFlushTrainingSections">
+<%user_training.sections.each.with_index do |section, position| %>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="flush-headingOne">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse<%=section.id%>" aria-expanded="false" aria-controls="flush-collapse<%=section.id%>">
+        <div class="d-flex flex-column">
+          <h3 class="fs-4"><%= position+1 %> - <%= section.title %></h3>
+          <% number = 0 %>
+          <% section.lessons.each do |lesson| %>
+          <%   if user_training.lessons_completed.include?(lesson.id.to_s) %>
+          <%     number += 1 %>
+          <%   end %>
+          <% end %>
+        <p class="ms-1 text-muted"><%= number %> / <%= section.lessons.count %></p>
+        </div>
+      </button>
+    </h2>
+    <div id="flush-collapse<%=section.id%>" class="accordion-collapse collapse" aria-labelledby="flush-heading<%=section.id%>" data-bs-parent="#accordionFlushTrainingSections">
+      <div class="accordion-body">
+          <% section.lessons.each do |lesson| %>
+          <% state = user_training.lessons_completed.include?(lesson.id.to_s) %>
+          <ul>
+            <li class="list-unstyled">
+              <%= link_to training_section_lesson_path(user_training, section, lesson), class:"section_links" do%>
+              <%= check_box_tag 'lesson_completed', '', state, class: 'form-check-input me-1', :disabled => true %>
+              - <!-- séparateur -->
+                <span class="me-4 section_links_text"><%= lesson.title %></span> 
+                <span class="me-4 section_links_icons">
+                  <i class="bi bi-journal-text"></i>
+                  <i class="bi bi-play-circle"></i>
+                  <% if lesson.documents.attached? %>
+                    <i class="bi bi-filetype-pdf"></i>
+                  <% end %>
+                </span>
+              <%end%>
+            </li>
+          </ul>           
+          <%end%>
+      </div>
+    </div>
+  </div>
+  <%end%>
+</div>
