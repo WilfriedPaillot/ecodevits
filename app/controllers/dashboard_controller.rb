@@ -19,6 +19,8 @@ class DashboardController < ApplicationController
     else
       @my_trainings = @user_trainings
     end
+    # @user_training = @user_trainings.find_by(training_id: params[:training])
+    @user_training = @user_trainings.find_by(training_id: params[:id])
   end
 
   def instructor
