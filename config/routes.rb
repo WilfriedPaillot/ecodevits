@@ -25,6 +25,7 @@ Rails.application.routes.draw do
 
   get 'dashboard/index'
   get 'dashboard/student', to: 'dashboard#student'
+  get 'dashboard/student/training/:id', to: 'dashboard#student', as: :student_training
   get 'dashboard/instructor' , to: 'dashboard#instructor'
   get 'dashboard/admin' , to: 'dashboard#admin'
 
