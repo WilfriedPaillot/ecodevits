@@ -1,0 +1,2 @@
+document.querySelector('#trainingDetails').innerHTML = '';
+document.querySelector('#trainingDetails').insertAdjacentHTML('afterbegin', '<%= j render 'training_details', user_training: @user_training %>');
