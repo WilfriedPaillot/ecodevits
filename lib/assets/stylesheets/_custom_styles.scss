@@ -30,6 +30,29 @@
   display: none;
 }
 
+a.section_links{
+  color: #000;
+  text-decoration: none;
+    & .section_links_icons i {
+      margin-right: 1.25rem;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+    & .section_links_text {
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  &:hover {
+    color: #068a3d;
+    font-size: 1.2rem;
+  }
+  transition: all 0.7s ease-in-out;
+}
+
+
+
 @media screen and (min-width: 768px) {
   .img_presentation {
     height: auto;

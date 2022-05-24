@@ -1,6 +1,19 @@
-$component-active-bg:                   $primary !default;
+$component-active-bg:                   #298538;
+$accordion-button-active-color:         shade-color($component-active-bg, 10%);
 
 // Form control input overrides
 $input-focus-color:                     $input-color !default;
 $input-focus-border-color:              #298538;
 $input-focus-box-shadow:                0 0 0 0.25rem rgba(36, 170, 92, 0.25); 
+
+
+$accordion-button-active-bg:              tint-color($component-active-bg, 90%);
+$accordion-button-active-color:           shade-color($component-active-bg, 10%) ;
+$accordion-button-focus-border-color:     $input-focus-border-color ;
+$accordion-button-focus-box-shadow:       rgba(36, 170, 92, 0.25) ;
+
+$accordion-icon-active-color :            $accordion-button-active-color ;
+$accordion-button-active-icon:  url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{$accordion-icon-active-color}'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>");
+
+$form-check-input-checked-bg-color:       $component-active-bg;
+$form-check-input-checked-border-color:   $form-check-input-checked-bg-color;
