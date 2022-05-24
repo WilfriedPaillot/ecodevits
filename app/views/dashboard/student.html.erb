@@ -1,29 +1,38 @@
-<h1>Liste de mes formations</h1>
+<%# hero_header %>
+<section class="row py-4">
+  <div class="col-12 mx-auto">
+    <div class="text-center mb-3">
+      <h1 class="mb-4 mx-auto display-1 fw-bold">
+        <span class="d-block">EcoDevIT</span>
+        <span class="highlight_word">Médiathèque</span>
+      </h1>
+    </div>
+  </div>
+</section>
 
-<% @my_trainings.each do |user_training| %>
-  <ul>
-    <h2><%= user_training.training.title %></h2>
-    <% if user_training.completed? %>
-      <li>Formation terminée</li>
-    <% end %>
-    <p><%= user_training.training.description %></p>
-  <% user_training.sections.each do |section| %>
-    <ul>
-      <h3><%= section.title %></h3>
-      <p><%= section.description %></p>
-    <% section.lessons.each do |lesson| %>
-      <ul>
-        <h4><%= link_to lesson.title, training_section_lesson_path(user_training, section, lesson) %></h4>
-        <% if user_training.lessons_completed.include?(lesson.id.to_s) %>
-          <p>Cette leçon est terminée</p>
-        <% else %>
-          <p>Cette leçon n'est pas terminée</p>
-        <% end %>
-      </ul>
-    <% end %>
-    </ul>
-  <%end%>
-  </ul>
-<%end%>
+<%# Latest trainings %>
+<section class="my-5">
+  <div class="row justify-content-start">
+    <% @my_trainings.each do |user_training| %>
+      <div class="col-12 col-md-6 col-lg-4 d-flex mb-4">
+        <div class="training_card card p-4 justify-content-between align-items-start shadow">
+          <%= cl_image_tag(user_training.training.thumbnail.key, class: "card-img-top", alt: "Thumbnail #{user_training.training.title}", height: "175px") if user_training.training.thumbnail.attached?%>
+            <h5 class="card-title mt-2"><%= user_training.training.title %></h5>
+            <h6 class="card-subtitle fst-italic fw-light">Par <%= user_training.training.user.first_name.capitalize%> <%= user_training.training.user.last_name.upcase%></h6>
+            <div class="card-body p-0 mt-3">
+              <p><%= user_training.training.description %></p>
+            </div>
+            <%#= link_to "Afficher les sections", dashboard_student_path(user_training.training), class:'section_link', remote: true %>
+            <%#= link_to "Afficher les sections", dashboard_student_path+"?training=#{user_training.training.id}", remote: true, class:'section_link' %>
+            <%= link_to "Afficher les sections", student_training_path(user_training.training.id), remote: true, class:'section_link' %>
+        </div>
+      </div>
+    <%end%>
+  </div>
+</section>
 
-
+<section class="row">
+  <div class="col-12" id="trainingDetails">
+    <%# Ajax request %>
+  </div>
+</section>
