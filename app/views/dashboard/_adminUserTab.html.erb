@@ -1,0 +1,51 @@
+<section class="row">
+  <h3 class="mb-5">Liste des instructeurs</h3>
+  <table class="table table-hover caption-top d-none d-lg-table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Nom d'utilisateur</th>
+        <th scope="col">Nom</th>
+        <th scope="col">Prénom</th>
+        <th scope="col">Email</th>
+        <th scope="col">Compétences</th>
+        <th scope="col">Statut</th>
+        <th scope="col">Editer</th>
+        <th scope="col">Supprimer</th>
+      </tr>
+    </thead>
+      <tbody>
+      <%users.each do |user| %>
+        <tr id="approveUser<%= user.id %>">
+          <th scope="row"><%= user.id %></th>
+          <td><%= user.username %></td>
+          <td><%= user.last_name.upcase %></td>
+          <td><%= user.first_name.capitalize %></td>
+          <td><%= user.email %></td>
+          <td>
+            <% user.specialities.each do |spec| %>
+              <span class="badge bg-info"><%=spec%></span>
+            <% end %>
+          </td>
+          <td>
+            <div class="form-check form-switch d-flex align-items-center justify-content-center">
+              <%= check_box_tag 'user[approved]', user.id, user.approved?, class: 'form-check-input', id: "user_approved_#{user.id}",
+                onchange: "this.setAttribute('data-params', 'checked:=' + this.checked * this.checked)",
+                data: { remote: true, url: set_approval_user_path(user), method: :put } %>
+            </div>
+          </td>
+          <td>
+            <%= link_to dashboard_admin_path do %>
+              <i class="bi bi-pencil-square text-success fs-5"></i>
+            <% end %>
+          </td>
+          <td>
+            <%= link_to dashboard_admin_path, remote: false, data: { confirm: 'Êtes-vous sûr de vouloir refuser ce profil ?' } do%>
+              <i class="bi bi-trash text-danger fs-5"></i>
+            <%end%>
+          </td>
+        </tr>
+      <%end%>
+    </tbody>
+  </table>
+</section>
