@@ -1,62 +1,87 @@
-<h1>Dashboards#admin</h1>
+<%# hero_header %>
+<section class="row py-4">
+  <div class="col-12 mx-auto">
+    <div class="text-center mb-3">
+      <h1 class="mb-4 mx-auto display-1 fw-bold">
+        <span class="d-block">EcoDevIT</span>
+        <span class="highlight_word">Espace d'administration</span>
+      </h1>
+    </div>
+  </div>
+</section>
 
-<h2> Bienvenue sur votre espace d'administration 
-  <%=current_user.first_name.capitalize%> <%=current_user.last_name.upcase%> 
-</h2>
+<section class="row my-5">
+  <div class="col-12">
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="#">Accueil</a>
+      </li>
+      <li class="nav-item">
+        <%= link_to 'Utilisateurs', admin_users_path, class:'nav-link', aria: {current:"utilisateurs"}, remote: true %>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#">Contenus</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled">Paramètre du site</a>
+      </li>
+    </ul>
+  </div>  
+</section>
 
-<div id="users">
-  <h3>Liste des utilisateurs</h3>
-    <% @users.each do |user| %>
-      <ul>
-        <li>
-          <%= user.first_name.capitalize %> <%= user.last_name.upcase %>
-        </li>
-        <li>
-          <%= user.email %>
-        </li>
-        <%if !user.student? %>
-          <li>
-            <%= user.approved? ? "Actif" : "Inactif" %>
-          </li>
-        <%end%>
-        <%if user.student? && user.user_trainings.exists? %>
-          <li>Formations suivies :
-            <%= user.user_trainings.map { |ut| ut.training.title }.join(", ") %>
-          </li>
-        <%elsif user.instructor?  %>
-          <li>Formations enseignées :
-            <%#= user.trainings.map { |it| it.training.title }.join(", ") %>
-            <%= Training.where(user_id: user.id).map { |t| t.title }.join(", ") %>
-          </li>
-        <%end%>
-      </ul>
-    <% end %>
-</div>
-
-<div id="approving">
-  <h2>Gérer les demandes en attentes</h2>
-
-  <p>Profils à valider <span style="color: orange"><%= @unapproved_user.count %></span></p>
-
-    <% @user_approval.each do |user| %>
-      <hr>
-      <ul id="approval<%=user.id%>">
-        <li>
-          <%= user.first_name.capitalize %> <%= user.last_name.upcase %>
-        </li>
-        <li>
-          <%= user.email %>
-        </li>
-        <br>
-        <li>
-          Specialities: <%= user.specialities.map { |s| s }.join(', ') %>
-        <li>
-          <%= link_to set_approval_user_path(user), remote: false do%>
-            <%= user.approved? ? "Désactiver" : "Accepter" %>
+<section class="row my-5" id="tabView">
+  <div class="col-md-4 d-flex justify-content-stretch align-items-stretch">
+    <div class="card card_key_bg bg-success bg-opacity-100 text-light">
+      <div class="card-header bg-transparent border-0">
+        <h4 class="d-flex mb-3">
+          <i class="bi bi-person-bounding-box me-4"></i>
+          Utilisateurs enregistrés
+        </h4>
+      </div>
+      <div class="card-body d-flex flex-column flex-grow-1 align-items-center">
+        <p class="mb-5 display-5"><%= @users.count %></p>
+      </div>
+      <div class="card-footer bg-transparent border-0">
+        <%if @unapproved_user.length > 0 %>
+          <%= link_to admin_users_path, class: "section_link text-white fw-bold" ,remote: true do %>
+            <%= pluralize(@unapproved_user.length, "demande") %> à valider
           <% end %>
-          <%= link_to 'Refuser', reject_user_path(user), remote: false, data: { confirm: 'Êtes-vous sûr de vouloir refuser ce profil ?' } %>
-        </li>
-      </ul>
-    <% end %>
-</div>
+        <%end%>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4 d-flex justify-content-stretch align-items-stretch">
+    <div class="card card_key_bg bg-success bg-opacity-75 text-light">
+      <div class="card-header bg-transparent border-0">
+        <h4 class="d-flex mb-3">
+          <i class="bi bi-book me-4"></i>
+          Leçons publiées
+        </h4>
+      </div>
+      <div class="card-body d-flex flex-column flex-grow-1 align-items-center">
+        <p class="mb-5 display-5"><%= 52 %></p>
+      </div>
+      <div class="card-footer bg-transparent border-0">
+        <%= link_to 'Gestion des contenus', dashboard_admin_path, class: "section_link text-white fw-bold" %>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4 d-flex justify-content-stretch align-items-stretch">
+    <div class="card card_key_bg bg-success bg-opacity-100 text-light">
+      <div class="card-header bg-transparent border-0">
+        <h4 class="d-flex mb-3">
+          <i class="bi bi-question-octagon me-4"></i>
+          Questionnaires
+        </h4>
+      </div>
+      <div class="card-body d-flex flex-column flex-grow-1 align-items-center">
+        <p class="mb-5 display-5"><%= @users.count / 3 %></p>
+      </div>
+      <div class="card-footer bg-transparent border-0">
+        <%= link_to 'Certificats de réussite', admin_users_path, class: "section_link text-white fw-bold"%>
+      </div>
+    </div>
+  </div>
+
+</section>
 
