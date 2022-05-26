@@ -29,12 +29,10 @@ class DashboardController < ApplicationController
   end
 
   def admin
-    #@users = User.excluding_admins.ordered_by_role_and_last_name
     @users = User.where.not(role: "admin").order(:role, :last_name)
-    # @user_approval = User.only_instructors.order(:created_at)
     @user_approval = User.where(role: "instructor").order(:created_at)
-    # @approved_user = @users.where(approved: true)
-    @unapproved_user = @users.where(approved: false)
+    @instructors = User.where(role: "instructor").order(:created_at)
+    @unapproved_user = @instructors.where(approved: false)
   end
 
 end
