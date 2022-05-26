@@ -51,6 +51,27 @@ a.section_links{
   transition: all 0.7s ease-in-out;
 }
 
+.card_header {
+  position: relative;
+}
+.card_action {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem;
+  width: 100%;
+}
+
+.card_key_bg {
+  position: relative;
+  width: 100%;
+  min-width: 100%;
+  background: url('circle.svg') no-repeat center center;
+  background-size: cover;
+}
 
 
 @media screen and (min-width: 768px) {

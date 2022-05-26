@@ -42,9 +42,11 @@
         <p class="mb-5 display-5"><%= @users.count %></p>
       </div>
       <div class="card-footer bg-transparent border-0">
-        <%if @unapproved_user.length > 0 %>
-          <%= link_to admin_users_path, class: "section_link text-white fw-bold" ,remote: true do %>
-            <%= pluralize(@unapproved_user.length, "demande") %> à valider
+        <%= link_to admin_users_path, class: "section_link text-white fw-bold" ,remote: true do %>
+          <%if @unapproved_user.length > 0 %>
+            Dont <%=pluralize(@unapproved_user.length, "inactif") %>
+          <% else %>
+            Gestion des utilisateurs
           <% end %>
         <%end%>
       </div>

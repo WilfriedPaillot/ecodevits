@@ -1,0 +1,2 @@
+document.querySelector('#tabView').innerHTML = '';
+document.querySelector('#tabView').insertAdjacentHTML('afterbegin', '<%= j render 'adminUserTab', users: @instructors %>');

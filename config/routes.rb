@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   scope '/dashboard' do
     resources :users do
       member do
-        get :set_approval
+        put :set_approval
         get :reject
       end
     end
@@ -28,6 +28,6 @@ Rails.application.routes.draw do
   get 'dashboard/student/training/:id', to: 'dashboard#student', as: :student_training
   get 'dashboard/instructor' , to: 'dashboard#instructor'
   get 'dashboard/admin' , to: 'dashboard#admin'
-
+  get 'dashboard/admin/users', to: 'dashboard#admin', as: :admin_users
   
 end
