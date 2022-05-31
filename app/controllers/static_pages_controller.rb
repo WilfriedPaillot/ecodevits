@@ -8,4 +8,10 @@ class StaticPagesController < ApplicationController
 
   def about
   end
+
+  def instructor
+    respond_to do |format|
+      format.html { render :template => 'devise/registrations/new'}
+    end
+  end
 end
