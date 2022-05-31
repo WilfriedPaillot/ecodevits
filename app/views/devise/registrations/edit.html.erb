@@ -1,48 +1,113 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<section class="row d-flex justify-content-center align-items-center mt-5 mt-lg-0 mb-5">
+  <div class="col col-lg-10">
+    <div class="card shadow" style="border-radius: 1rem;">
+      <div class="row">
+        <div class="col-md-6 col-lg-5 d-none d-md-block">
+          <%= image_tag 'login.jpg', alt: 'login image form', class:'img-fluid h-100', style:"border-radius: 1rem 0 0 1rem;" %>
+        </div>
+        <div class="col-md-6 col-lg-7 d-flex align-items-center">
+          <div class="card-body text-black">
+            <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+              <%= render "devise/shared/error_messages", resource: resource %>
+              <% role = current_user.role %>
+              <h2 class="mb-4 highlight_word">Editer mon compte</h2>
+              <div class="" id="stageOne">
+                <div class="form-outline mb-4">
+                  <%= f.label :username, 'Nom d\'utilisateur', class:"form-label" %>
+                  <%= f.text_field :username, autofocus: true, autocomplete: "username", class:"form-control form-control-lg" %>
+                </div>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-  
-  <div class="field">
-    <%= f.label :username %><br />
-    <%= f.text_field :username, autofocus: true, autocomplete: "username" %>
+                <div class="form-outline mb-4">
+                  <%= f.label :email, 'Adresse email', class:"form-label" %>
+                  <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"form-control form-control-lg" %>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <%= f.label :password, 'Mot de passe', class:"form-label" %>
+                  <% if @minimum_password_length %>
+                  <em>(<%= @minimum_password_length %> caractères minimum)</em>
+                  <% end %><br />
+                  <%= f.password_field :password, autocomplete: "new-password", class:"form-control form-control-lg" %>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <%= f.label :password_confirmation, 'Répétez le mot de passe', class:"form-label" %><br />
+                  <%= f.password_field :password_confirmation, autocomplete: "new-password-confirmation", class:"form-control form-control-lg" %>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <%= f.label :current_password, 'Mot de passe actuel', class:"form-label" %><i> (Nécessaire pour la mise à jour)</i><br />
+                  <%= f.password_field :current_password, autocomplete: "current-password", class:"form-control form-control-lg" %>
+                </div>
+
+                <div class="actions">
+                  <% if role == "student" %>
+                    <%= f.submit "Mettre à jour", class:"btn btn-lg gradient-custom text-white" %>
+                  <% else %>
+                    <%= button_tag('Autres infos', class:"btn btn-lg gradient-custom text-white", type:'button', id:"nextStage") %>
+                  <% end %>
+                </div>
+              </div>
+              <div class="d-none" id="stageTwo">
+                <div class="d-flex justify-content-between">
+                  <div class="form-outline mb-4">
+                    <%= f.label :first_name, 'Prénom', class:"form-label" %>
+                    <%= f.text_field :first_name, autocomplete: "first_name", class:"form-control form-control-lg" %>
+                  </div>
+                  <div class="form-outline mb-4">
+                    <%= f.label :last_name, 'Nom', class:"form-label" %>
+                    <%= f.text_field :last_name, autocomplete: "last_name", class:"form-control form-control-lg" %>
+                  </div>
+                </div>
+                <div class="form-outline mb-4">
+                  <%= f.label :adress, 'Adresse', class:"form-label" %>
+                  <%= f.text_field :adress, autocomplete: "adress", class:"form-control form-control-lg" %>
+                </div>
+                <div class="d-flex">
+                  <div class="form-outline mb-4 w-25">
+                    <%= f.label :zipcode, 'Code postal', class:"form-label" %>
+                    <%= f.text_field :zipcode, autocomplete: "zipcode", class:"form-control form-control-lg" %>
+                  </div>
+                  <div class="form-outline mb-4 ms-2 w-100">
+                    <%= f.label :city, 'Ville', class:"form-label" %>
+                    <%= f.text_field :city, autocomplete: "city", class:"form-control form-control-lg" %>
+                  </div>
+                </div>
+                <div class="row g-0 form-outline mb-4 mx-auto">
+                  <%= f.label :specialities, 'Spécialités', class:"form-label" %>
+                  <div class="col-12 col-md-6 py-2">
+                    <%= f.text_field :specialities, multiple: true, autocomplete: "specialities", class:"form-control form-control-lg px-2" %>
+                  </div>
+                  <div class="col-12 col-md-6 py-2 ps-2">
+                    <%= f.text_field :specialities, multiple: true, autocomplete: "specialities", class:"form-control form-control-lg px-2" %>
+                  </div>
+                  <div class="col-12 col-md-6 py-2">
+                    <%= f.text_field :specialities, multiple: true, autocomplete: "specialities", class:"form-control form-control-lg px-2" %>
+                  </div>
+                  <div class="col-12 col-md-6 py-2 ps-2">
+                    <%= f.text_field :specialities, multiple: true, autocomplete: "specialities", class:"form-control form-control-lg px-2" %>
+                  </div>
+                </div>
+
+                <div class="actions">
+                  <%= f.submit "Mettre à jour", class:"btn btn-lg gradient-custom text-white" %>
+                </div>
+              </div>
+              <% if role != 'admin' %>
+                <div class="form-outline mt-4">
+                  <p>Envie de nous quitter?
+                    <%= link_to "Supprimer mon compte", 
+                        registration_path(resource_name),
+                        data: { confirm: "Nous sommes désolés que vous nous quittiez déjà. Aidez-nous à nous améliorer en laissant un avis." }, 
+                        class:'small section_link' 
+                    %>
+                  </p>
+                </div>
+              <%end%>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autocomplete: "email" %>
-  </div>
-
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-    <% if @minimum_password_length %>
-      <br />
-      <em><%= @minimum_password_length %> characters minimum</em>
-    <% end %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "current-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Update" %>
-  </div>
-<% end %>
-
-<h3>Cancel my account</h3>
-
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
-
-<%= link_to "Back", :back %>
+</section>
