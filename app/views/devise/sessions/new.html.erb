@@ -1,26 +1,47 @@
-<h2>Log in</h2>
+<section class="row d-flex justify-content-center align-items-center mt-5 mt-lg-0 mb-5">
+  <div class="col col-xl-10">
+    <div class="card shadow" style="border-radius: 1rem;">
+      <div class="row">
+        <div class="col-md-6 col-lg-5 d-none d-md-block">
+          <%= image_tag 'login.jpg', alt: 'login image form', class:'img-fluid', style:"border-radius: 1rem 0 0 1rem;" %>
+        </div>
+        <div class="col-md-6 col-lg-7 d-flex align-items-center">
+          <div class="card-body text-black">
+            <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+            <h2 class="mb-4 highlight_word">Accéder à votre compte</h2>
+              
+              <div class="form-outline mb-4">
+                <%= f.label :email, class:"form-label" %>
+                <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"form-control form-control-lg" %>
+              </div>
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
+              <div class="form-outline mb-4">
+                <%= f.label :password, class:"form-label" %>
+                <%= f.password_field :password, autocomplete: "current-password", class:"form-control form-control-lg" %>
+              </div>
 
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+              <% if devise_mapping.rememberable? %>
+                <div class="form-outline mb-4">
+                  <%= f.check_box :remember_me, class:"form-check-input" %>
+                  <%= f.label :remember_me, class:"form-label" %>
+                </div>
+              <% end %>
+
+              <div class="actions">
+                <%= f.submit "Se connecter", class:"btn btn-lg gradient-custom text-white" %>
+              </div>
+
+              <div class="form-outline mt-4">
+                <%= link_to 'Mot de passe oublié?', new_user_password_path, class:'small section_link' %>
+                <p>Pas encore de compte?
+                  <%= link_to 'Créer un compte', new_user_registration_path, class:'small section_link' %>
+                </p>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
     </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit "Log in" %>
   </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</section>
