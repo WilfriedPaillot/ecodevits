@@ -131,9 +131,9 @@
       <div class="d-flex flex-column flex-lg-row justify-content-center align-items-center w-100">
         <% unless user_signed_in? && current_user.student? %>
           <%= link_to 'Membres', new_user_registration_path, class: "btn btn-lg btn-success text-white flex-center mx-auto mx-lg-2 mb-2 w-100", style:"max-width:280px"%>
-          <%= link_to 'Contributeur', new_user_registration_path, class: "btn btn-lg btn-outline-success flex-center mx-auto mx-lg-2 mb-2 w-100", style:"max-width:280px"%>
+          <%= link_to 'Contributeur', static_pages_instructor_path, class: "btn btn-lg btn-success text-white flex-center mx-auto mx-lg-2 mb-2 w-100", style:"max-width:280px"%>
         <%else%>
-          <%= link_to 'Contributeur', new_user_registration_path, class: "btn btn-lg btn-outline-success flex-center mx-auto mx-lg-2 mb-2 w-100", style:"max-width:280px"%>
+          <%= link_to 'Contributeur', static_pages_instructor_path, class: "btn btn-lg btn-outline-success flex-center mx-auto mx-lg-2 mb-2 w-100", style:"max-width:280px"%>
         <% end %>
       </div>
     </div>
