@@ -1,12 +1,19 @@
 Rails.application.routes.draw do
-  devise_for :users
   root to: 'static_pages#homepage'
-  get 'static_pages/contact'
-  get 'static_pages/about'
+  get 'contactez-nous', to: 'static_pages#contact', as: 'static_pages/contact'
+  get 'a-propos', to: 'static_pages#about', as: 'static_pages/about'
+  get 'devenir-instructeur', to: 'static_pages#instructor', as: 'static_pages/instructor'
   
+  devise_for :users, 
+    path: '', 
+    path_names: { 
+      sign_in: 'connexion', 
+      sign_out: 'déconnexion', 
+      sign_up: 'inscription'
+    }
+
   resources :trainings, as: :catalogue, path: :catalogue
   resources :lessons
-  #old resources :trainings_users, only: [:new, :create] 
   resources :user_trainings, only: [:new, :create, :update]
   
   scope '/dashboard' do
