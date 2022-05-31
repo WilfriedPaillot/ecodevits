@@ -73,6 +73,13 @@ a.section_links{
   background-size: cover;
 }
 
+.gradient-custom {
+  background: #0ba360;
+  background-image: linear-gradient(to right, #0ba360 0%, #3cba92 100%);
+  background-image: -webkit-linear-gradient(to right, #0ba360 0%, #3cba92 100%);
+  background-image: -moz-linear-gradient(to right, #0ba360 0%, #3cba92 100%);
+  background-image: -o-linear-gradient(to right, #0ba360 0%, #3cba92 100%);
+  }
 
 @media screen and (min-width: 768px) {
   .img_presentation {
