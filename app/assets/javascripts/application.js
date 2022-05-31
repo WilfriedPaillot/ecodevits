@@ -11,6 +11,7 @@
 // about supported directives.
 //
 //= require bootstrap_scripts
+//= require signUp
 //= require rails-ujs
 //= require activestorage
 //= require turbolinks
