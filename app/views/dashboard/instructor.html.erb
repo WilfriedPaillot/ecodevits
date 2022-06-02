@@ -1,49 +1,78 @@
-<h1>Dashboards#instructor</h1>
+<%# hero_header %>
+<section class="row py-4">
+  <div class="col-12 mx-auto">
+    <div class="text-center mb-3">
+      <h1 class="mb-4 mx-auto display-1 fw-bold">
+        <span class="d-block">EcoDevIT</span>
+        <span class="highlight_word">Dashboard</span>
+      </h1>
+    </div>
+  </div>
+</section>
 
-<h2> Bienvenue sur votre dashboard
-  <%=current_user.first_name.capitalize%> <%=current_user.last_name.upcase%> 
-</h2>
+<%# Published trainings %>
+<section class="my-5">
+  <hr>
+  <div class="d-flex justify-content-between mb-5">
+    <h2 class="highlight_word">Vos formations publiées</h2>
+    <%= link_to new_training_path, class:"btn fs-4 text-success d-flex justify-content-end align-items-center" do%>
+      <i class="bi bi-plus-circle mx-3"></i> 
+      <span class="section_link">Créer une formation</span>
+    <%end%>
+  </div>
+  <div class="row justify-content-start">
+    <% @published_trainings.each do |training| %>
+      <div class="col-12 col-md-6 col-lg-4 d-flex mb-4">
+        <div class="card p-0 justify-content-between align-items-start shadow">
+          <%= cl_image_tag(training.thumbnail.key, 
+            class: "card-img-top", 
+            alt: "Thumbnail #{training.title}", 
+            height: "175px") if training.thumbnail.attached?
+          %>
+          <div class="card-body mx-auto">
+            <%= link_to training_path(training), class:"btn btn-outline-success" do %>
+              <i class="bi bi-eye"></i>
+              Voir
+            <% end %>
+            <%= link_to edit_training_path(training), class:"btn btn-outline-success" do %>
+              <i class="bi bi-pen"></i>
+              Editer
+            <% end %>
+            <%= link_to training_path(training), 
+                method: :delete, 
+                data: { confirm: "Voulez-vous vraiment supprimer cette formation ?" },
+                class:"btn btn-outline-danger" do %>
+              <i class="bi bi-trash"></i>
+              Supprimer
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <%end%>
+  </div>
+</section>
 
-<h3>Vos formations publiées</h3>
-  <% @published_trainings.each do |published_training|  %>
-    <%= published_training.title %>
-    <%= link_to "Détails" , training_path(published_training.id) %>
-  <%end%>
+<%# Followed trainings %>
+<section class="my-5">
+  <hr>
+  <h2 class="highlight_word mb-5">Vos formations suivies</h2>
+  <div class="row justify-content-start">
+    <% @followed_trainings.each do |followed_training|  %>
+      <div class="col-12 col-md-6 col-lg-4 d-flex mb-4">
+        <div class="training_card card p-4 justify-content-between align-items-start shadow">
+          <%= cl_image_tag(followed_training.training.thumbnail.key, class: "card-img-top", alt: "Thumbnail #{followed_training.training.title}", height: "175px") if followed_training.training.thumbnail.attached?%>
+            <h5 class="card-title mt-2"><%= followed_training.training.title %></h5>
+            <h6 class="card-subtitle fst-italic fw-light">Par <%= followed_training.training.user.first_name.capitalize%> <%= followed_training.training.user.last_name.upcase%></h6>
+            <div class="card-body p-0 mt-3">
+              <p><%= followed_training.training.description %></p>
+            </div>
+            <%= link_to "Afficher les sections", instructor_training_path(followed_training.training.id), remote: true, class:'section_link' %>
+        </div>
+      </div>
+    <%end%>
+  </div>
+</section>
 
-<h3>Créer une formation</h3>
-<%= link_to 'Créer une formation', new_training_path %>
-<hr>
-
-<h3>Vos formations suivies</h3>
-  <%= @followed_trainings.each do |followed_training|  %>
-  <%end%>
-
-  <h3>Vos formations en cours</h3>
-  <% @followed_trainings.each do |followed_training|  %>
-  <ul>
-    <% unless followed_training.completed == 100 %>
-      <li>
-        <h4><%= followed_training.training.title %></h4> 
-        <% if followed_training.completed == 0 %>
-          <!-- Route to first lesson of training -->
-          <%= link_to "Commencer" %>
-        <% else %>
-          <!-- Route to first lesson after last added to completed_lessons -->
-          <%= link_to "Continuer" %>
-        <% end %>
-      </li>
-    <% end %>
-  </ul>
-  <%end%>
-
-  <h3>Vos formations terminées</h3>
-    <% if @followed_trainings.map {|training| training.completed == 100}.include?(true) %>
-    <ul>
-      <% @followed_trainings.each do |followed_training|  %>
-        <li><%= followed_training.training.title%></li>
-      <% end %>
-    </ul>
-    <%else%>
-      <%= "Aucune formation terminée"  %>
-    <% end %>
-
+<section id="trainingDetails">
+  <!-- AJAX -->
+</section>
