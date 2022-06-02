@@ -34,7 +34,9 @@ Rails.application.routes.draw do
   get 'dashboard/student', to: 'dashboard#student'
   get 'dashboard/student/training/:id', to: 'dashboard#student', as: :student_training
   get 'dashboard/instructor' , to: 'dashboard#instructor'
+  get 'dashboard/instructor/training/:id', to: 'dashboard#instructor', as: :instructor_training
   get 'dashboard/admin' , to: 'dashboard#admin'
   get 'dashboard/admin/users', to: 'dashboard#admin', as: :admin_users
-  
+  # VOIR A CHANGER les as: student_training et instructor_training en followed_training pour une route unique
+  # et une méthode dans le model UserTraining pour récupérer les formations suivies par l'utilisateur...
 end
