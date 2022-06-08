@@ -39,15 +39,15 @@
     <div class="row justify-content-center align-items-center mt-lg-5 mb-5 py-lg-5">
       <% img_order = training.id.even? ? 2 : 1 %>
       <div class="col-12 col-md-7 d-flex flex-column mb-3 px-3 order-md-<%=img_order%>">
-        <%= cl_image_tag(training.thumbnail.key, class: "img-fluid img_presentation mx-auto rounded-3 shadow", loading:"lazy", alt:"Thumbnail #{training.title}") %>
+        <%= cl_image_tag(training.thumbnail.key, class: "img-fluid img_presentation mx-auto rounded-3 shadow", loading:"lazy", alt:"Thumbnail #{training.title}") rescue nil %>
       </div>
       <% txt_order = training.id.even? ? 1 : 2 %>
       <div class="col-12 col-md-5 d-flex flex-column mb-3 order-md-<%= txt_order %>">
         <h2 class="mb-4 display-5"><%= training.title %></h2>
         <div>
-            <p><%= training.description %></p>
+            <p><%= sanitize(training.description, tags: %w(div p ul ol li em strong br)).html_safe %></p>
             <p>Cette formation de <%= pluralize(training.sections.count, 'section') %> 
-              vous est offerte par <%= training.user.email.slice(0, training.user.email.index('@')) %>.
+              vous est offerte par <%= training.user.first_name.capitalize %> <%= training.user.last_name.upcase %>.
             </p>
         </div>
         <%= link_to "Plus de détails", catalogue_path(training), class:'section_link' %>

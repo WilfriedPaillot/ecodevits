@@ -7,8 +7,7 @@
         <span class="highlight_word"><%= @training.title %></span>
       </h1>
       <p class="mx-auto lead">
-        <span class="d-block"> Retrouvez ici le descriptif complet de cette formation </span>
-        <span class="d-block"> proposée par <%= @training.user.first_name.capitalize%> <%= @training.user.last_name.upcase%></span>
+        <span class="d-block"> Une formation dispensée par <%= @training.user.first_name.capitalize%> <%= @training.user.last_name.upcase%></span>
       </p>
     </div>
   </div>
@@ -16,14 +15,27 @@
 
 <section class="row justify-content-center align-items-center my-3 py-lg-5">
   <div class="col-12 col-lg-6 d-flex flex-column mb-3 px-3">
-    <%= cl_image_tag(@training.thumbnail.key, class: "img-fluid img_presentation mx-auto rounded-3 shadow", loading:"lazy", alt:"Thumbnail #{@training.title}") %>
+    <%= cl_image_tag(@training.thumbnail.key, class: "img-fluid img_presentation mx-auto rounded-3 shadow", loading:"lazy", alt:"Thumbnail #{@training.title}") rescue nil %>
   </div>
   <div class="col-12 col-lg-6 d-flex flex-column mb-3 px-3> ">
-    <h2 class="mb-4 display-5"><%= @training.title %></h2>
-    <p><%= @training.description %></p>
-    <p>Cette formation compte <%= pluralize(@training.sections.count, 'section')%> <br>
-    <%= link_to "Découvrir le contenu", catalogue_path(@training), id:'sectionDetailsLink', class:'section_link', remote: true %>
-    </p>
+    <span class="d-flex align-items-center mb-4">
+    <% if current_user.is_authorized(@training) %>
+      <%= link_to edit_training_path, class:"fs-4 me-3" do %>
+        <i class="bi bi-pen text-success"></i>
+      <%end%>
+    <%end%>
+      <h2 class="display-5"><%= @training.title %></h2>
+    </span>
+    <p><%= sanitize(@training.description, tags: %w(strong em p br div ul ol li code)).html_safe %></p>
+    <span class="d-flex align-items-center mb-4">
+    <% if current_user.is_authorized(@training) %>
+      <%= link_to new_training_section_path(@training), class:"fs-4 me-3" do%>
+        <i class="bi bi-plus-circle text-success"></i>
+      <% end %>
+    <% end %>
+        Cette formation compte <%= pluralize(@training.sections.count, 'section')%> <br>
+    </span>  
+      <%= link_to "Découvrir le contenu", catalogue_path(@training), id:'sectionDetailsLink', class:'section_link', remote: true %>
   </div>
 </section>
 
@@ -44,16 +56,5 @@
       <% end %>
       <%= link_to "Retour à la liste", catalogue_index_path, class: "btn btn-lg btn-outline-success flex-center mx-auto mx-lg-2 mb-2 w-100", style:"max-width:280px" %>
     </div>
-
-    <div class="mt-5">
-      <%if current_user == @training.user%>
-        <div class="d-flex flex-column justify-content-center align-items-center">
-        <p class="fs-3">Vos accès rapides <%= current_user.first_name.capitalize %></p>
-          <%= link_to "Editer", edit_training_path(@training), class: "btn btn-lg btn-outline-info flex-center mx-auto mx-lg-2 mb-2 w-100", style:"max-width:280px" %>
-          <%= link_to "Supprimer", training_path(@training), class: "btn btn-lg btn-outline-danger flex-center mx-auto mx-lg-2 mb-2 w-100", style:"max-width:280px", method: :delete, data: { confirm: "Voulez-vous vraiment supprimer cette formation ?" } %>
-        </div>
-      <%end%>
-    </div>
-
   <%end%>
 </section>

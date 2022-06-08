@@ -8,10 +8,10 @@ class TrainingsController < ApplicationController
       @trainings = Training.search(params[:search]).order_desc
         if @trainings.empty?
           flash[:alert] = "Aucun résultat pour \"#{params[:search]}\""
-          @trainings = Training.order_desc
+          @trainings = Training.with_attached_thumbnail.order_desc
         end
     else
-      @trainings = Training.order_desc
+      @trainings = Training.with_attached_thumbnail.order_desc
     end
   end
 
@@ -26,8 +26,9 @@ class TrainingsController < ApplicationController
   end
 
   def create
-    @training = Training.new(training_params)
-    @training.user_id = current_user.id
+    @training = Training.new(training_params).tap do |training|
+      training.user_id = current_user.id
+    end
     if @training.save
       redirect_to @training, notice: 'Formation créée avec succès.'
     else
@@ -45,7 +46,7 @@ class TrainingsController < ApplicationController
 
   def destroy
     @training.destroy
-    redirect_to trainings_url, notice: 'Formation supprimée avec succès.'
+    redirect_to dashboard_index_path, notice: 'Formation supprimée avec succès.'
   end
 
 

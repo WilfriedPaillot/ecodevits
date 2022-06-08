@@ -1,3 +1,7 @@
-document.querySelector('#sectionDetails').innerHTML = '';
-document.querySelector('#sectionDetails').insertAdjacentHTML('afterbegin', '<%= j render 'trainings/section_details', training: @training %>');
-document.querySelector('#sectionDetailsLink').innerHTML = '';
+if (document.querySelector('#sectionDetailsLink').innerHTML === 'Découvrir le contenu') {
+  document.querySelector('#sectionDetailsLink').innerHTML = 'Masquer le contenu';
+  document.querySelector('#sectionDetails').insertAdjacentHTML('afterbegin', '<%= j render 'trainings/section_details', training: @training %>');
+} else {
+  document.querySelector('#sectionDetails').innerHTML = '';
+  document.querySelector('#sectionDetailsLink').innerHTML = 'Découvrir le contenu';
+}
