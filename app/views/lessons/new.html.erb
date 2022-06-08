@@ -1,2 +1,18 @@
-<h1>Lessons#new</h1>
-<p>Find me in app/views/lessons/new.html.erb</p>
+<section class="row">
+  <div class="col-12 d-flex flex-column align-items-center justify-content-center mt-5">
+    <h2 class="highlight_word text-center">Création d'une leçon</h2>
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <%= @training.title %>
+        </li>
+        <li class="breadcrumb-item">
+          <%= @section.title %>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Nouvelle leçon</li>
+      </ol>
+    </nav>
+  </div>
+
+  <%= render 'form', lesson: @lesson %>
+</section>

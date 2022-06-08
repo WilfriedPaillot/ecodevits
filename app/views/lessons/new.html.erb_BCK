@@ -1,0 +1,45 @@
+<section class="mt-2 mb-5">
+<h1 class="highlight_word">Nouvelle leçon</h1>
+
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <%= @training.title %>
+    </li>
+    <li class="breadcrumb-item">
+      <%= @section.title %>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">Nouvelle leçon</li>
+  </ol>
+</nav>
+
+<%= form_for(@lesson, url: training_section_lessons_path, class:'row') do |f| %>
+  <div class="form-group">
+    <div class="form-outline mb-4">
+      <%= f.label :title %>
+      <%= f.text_field :title, class: 'form-control' %>
+    </div>
+
+    <div class="form-outline mb-4">
+      <%= f.label :content %>
+      <%= f.trix_editor :content, class: 'form-control', style:'min-height: 200px'%>
+    </div>
+
+    <div class="form-outline d-flex align-items-center mb-4">
+      <%= f.file_field :video, class: 'form-control px-2' %>
+      <span class="mx-3">ou</span> 
+      <%= f.text_field :url, placeholder: 'Saisir une url Youtube' ,class: 'form-control px-2' %>
+    </div>
+
+    <div class="form-outline d-flex align-items-center mb-4">
+      <%= f.file_field :documents, multiple: true, class: 'form-control px-2' %>
+    </div>
+
+  <div class="d-flex">
+    <%= f.submit "Enregistrer", class:"btn btn-lg gradient-custom text-white me-2" %>
+    <%= link_to 'Retour', @training, class:"btn btn-lg gradient-custom text-white" %>
+  </div>
+
+  </div>
+<% end %>
+</section>
