@@ -1,6 +1,6 @@
 class StaticPagesController < ApplicationController
   def homepage
-    @latest_trainings = Training.latest(3)
+    @latest_trainings = Training.with_attached_thumbnail.latest(3)
   end
 
   def contact
