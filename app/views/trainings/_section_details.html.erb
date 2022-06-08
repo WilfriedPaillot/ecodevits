@@ -1,18 +1,41 @@
-    <% training.sections.each do |section| %>
-    <% bk = training.sections.length > 1 ? 6 : 12 %>
-    <div class="col-12 col-md-<%=bk%> d-flex flex-column mb-3 px-3">
-      <div class="section_title">
-        <h3><%= section.title %></h3>
-      </div>
-      <div class="section_description">
-        <p><%= section.description.chop %> en <%= pluralize(section.lessons.count, 'leçon')%> !</p>
-      </div>
-      <ul class="list-group">
-      <% section.lessons.each do |lesson| %>
-        <li class="list-item mx-3 mb-2">
-          <%= lesson.title %>
-        </li>
+<% training.sections.each do |section| %>
+<% bk = training.sections.length > 1 ? 6 : 12 %>
+  <div class="col-12 col-md-<%=bk%> d-flex flex-column mb-3 px-3">
+    <div class="section_title d-flex align-items-center mb-4">
+      <% if current_user.is_authorized(training) %>
+        <%= link_to edit_training_section_path(training, section), class: 'fs-4 me-3' do%>
+          <i class="bi bi-pen text-success"></i>
+        <% end %>
       <% end %>
-      </ul>  
+      <h3><%= section.title %></h3>
     </div>
-  <% end %>
+    <div class="section_description">
+      <p><%= sanitize(section.description.chop, tags: %w(div p ul ol li strong em code)).html_safe %> en <%= pluralize(section.lessons.count, 'leçon')%> !</p>
+    </div>
+    <ol class="list-group">
+    <% section.lessons.each do |lesson| %>
+    <div class="section_title d-flex align-items-center mb-4">
+      <% if current_user.is_authorized(training) %>
+        <%= link_to edit_training_section_lesson_path(training, section, lesson), class:"fs-5 me-3" do%>
+          <i class="bi bi-pen text-success"></i>
+        <% end %>
+      <% end %>
+      <li class="list-item mx-3 mb-2">
+        <%= lesson.title %>
+      </li>
+    </div>
+    <% end %>
+    </ol>  
+      <% if current_user.is_authorized(training) %>
+    <div class="d-flex align-items-center mb-4">
+        <%= link_to new_training_section_lesson_path(training, section), class:"section_link" do%>
+      <%# <li class="list-item mx-3 mb-2"> %>
+          <i class="bi bi-plus-circle text-success fs-5 me-3"></i>
+          <span class="section_link">Nouvelle leçon</span>
+      <%# </li> %>
+        <%end%>
+    </div>
+      <%end%>
+  </div>
+<% end %>
+

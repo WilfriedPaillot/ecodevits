@@ -1,0 +1,29 @@
+<h1 class="highlight_word">Nouvelle section</h1>
+
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <%= @training.title %>
+    </li>
+    <li class="breadcrumb-item  active" aria-current="page">Nouvelle section</li>
+  </ol>
+</nav>
+
+<%= form_for(@section, url: training_sections_path) do |f| %>
+<div class="form-group">
+  <div class="form-outline mb-4">
+    <%= f.label :title, 'Titre', class:"form-label" %>
+    <%= f.text_field :title, autofocus: true, autocomplete: "title", class:"form-control form-control-lg" %>
+  </div>
+
+  <div class="form-outline mb-4">
+    <%= f.label :description %>
+    <%= f.trix_editor :description, class: 'form-control', style:'min-height: 150px' %>
+  </div>
+
+  <div class="d-flex">
+    <%= f.submit "Enregistrer", class:"btn btn-lg gradient-custom text-white me-2" %>
+    <%= link_to "Retour", @training, class:"btn btn-lg gradient-custom text-white me-2" %>
+  </div>
+</div>
+<% end %>
