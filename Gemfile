@@ -73,3 +73,5 @@ gem "jquery-rails", "~> 4.4"
 gem "cloudinary", "~> 1.23"
 
 gem "dotenv-rails", "~> 2.7"
+
+gem 'trix-rails', require: 'trix'
