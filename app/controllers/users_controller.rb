@@ -8,19 +8,38 @@ class UsersController < ApplicationController
   #   @unapproved_user = @users.where(approved: false)
   # end
 
+  def edit
+    @user = User.find(params[:id])
+  end
+
+  def update
+    @user = User.find(params[:id])
+    if @user.update(user_params)
+      respond_to do |format|
+        format.html { redirect_to dashboard_admin_path, notice: 'L\'utilisateur a bien été modifié' }
+        format.js {}
+      end
+    else
+      flash[:alert] = "Une erreur inattendue s'est produite"
+    end
+  end
+
   def set_approval
     @user = User.find(params[:id])
-    state = @user.approved? ? false : true
-    @user.update(approved: state)
-    respond_to do |format|
-      format.html { redirect_to dashboard_admin_path }
-      format.js {}
-    end
+    @user.update(approved: !@user.approved?)
+      if @user.save
+        respond_to do |format|
+        format.html { redirect_to dashboard_admin_path, flash: {notice: "L'utilisateur a bien été #{!@user.approved? ? 'dés' : ''}activé"} }
+        format.js {}
+        end
+      else
+        flash[:alert] = "Une erreur inattendue s'est produite"
+      end
   end
 
   def reject
     @user = User.find(params[:id])
-    @user.destroy
+    @user.destroy!
     
     respond_to do |format|
       format.html { redirect_to dashboard_admin_path }
