@@ -1,0 +1,112 @@
+<%= form_for(@lesson, url: training_section_lessons_path, class:'row') do |form| %>
+<div class="row justify-content-center mt-3">
+  <div class="col-md-6">
+    <%if lesson.errors.any? %>
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <h5 class="text-center"><%= pluralize(lesson.errors.count, "erreur") %> à corriger</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+  <div class="row mb-5">
+    <div class="col-md-6">
+      <% invalid = lesson.errors.include?(:title) %>
+      <div class="form-group">
+        <h3 class="orange_underline">Détails leçon</h3>
+        <%= form.label :title, class: "form-label mt-3" %>
+        <%= form.text_field :title, class: "form-control #{'is-invalid' if invalid}" %>
+
+          <% if invalid %>
+          <div class="invalid-feedback d-block">
+            <% lesson.errors.full_messages_for(:title).each do |error_message| %>
+              <li class="list-unstyled"><%= error_message %></li>
+            <% end %>
+          </div>
+          <% end %>
+
+      </div>
+    </div>
+
+    <div class="col-12">
+      <% invalid = lesson.errors.include?(:content) %>
+      <div class="form-group">
+        <%= form.label :content, class:"form-label mt-3" %>
+        <%= form.trix_editor :content, class: "form-control #{'is-invalid' if invalid}", style:'min-height: 200px' %>
+
+          <% if invalid %>
+            <div class="invalid-feedback d-block">
+              <% lesson.errors.full_messages_for(:content).each do |error_message| %>
+                <li class="list-unstyled"><%= error_message %></li>
+              <% end %>
+            </div>
+          <% end %>
+
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row justify-content-center">
+    <h3 class="orange_underline">Import vidéo</h3>
+    <p>Sur EcoDevIT vous pouvez uploader votre vidéo <strong>OU</strong> éviter d'alourdir la dette écologique si cette dernière est déjà sur Youtube ;)</p>
+    
+    <% invalid = lesson.errors.include?(:url) || lesson.errors.include?(:video) %>
+      <div class="col-md-4">
+    <div class="form-group">
+        <%= form.label :video, class:"form-label" %>
+        <%= form.file_field :video, class: "form-control #{'is-invalid' if invalid}" %>
+        <% if invalid %>
+          <div class="invalid-feedback d-block">
+            <% lesson.errors.full_messages_for(:video).each do |error_message| %>
+              <li class="list-unstyled"><%= error_message %></li>
+            <% end %>
+          </div>
+        <% end %>        
+      </div>
+    </div>
+      <div class="col-md-4">
+    <div class="form-group">
+        <%= form.label :url, class:"form-label" %>
+        <%= form.url_field :url, class: "form-control #{'is-invalid' if invalid}", placeholder: "https://www.youtube.com/watch?v=a1B2c3D4e5F" %>
+        <% if invalid %>
+          <div class="invalid-feedback d-block">
+            <% lesson.errors.full_messages_for(:url).each do |error_message| %>
+              <li class="list-unstyled"><%= error_message %></li>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+<hr>
+
+  <div class="row justify-content-center my-5">
+    <h3 class="orange_underline">Pièces complémentaires</h3>
+    <p>Ajoutez une ou plusieurs pièces</p>
+    <div class="col-md-6">
+      <% invalid = lesson.errors.include?(:documents) %>
+      <div class="form-group">
+        <%= form.label :documents, class:"form-label" %>
+        <%= form.file_field :documents, multiple: true, class: "form-control #{'is-invalid' if invalid}" %>
+
+          <% if invalid %>
+            <div class="invalid-feedback d-block">
+              <% lesson.errors.full_messages_for(:documents).each do |error_message| %>
+                <li class="list-unstyled"><%= error_message %></li>
+              <% end %>
+            </div>
+          <% end %>
+
+      </div>
+    </div>
+    <div class="col-md-6 d-flex justify-content-center align-items-center">
+      <%= form.submit "Enregistrer", class:"btn btn-lg gradient-custom text-white me-2" %>
+      <%= link_to 'Retour', @training, class:"btn btn-lg gradient-custom text-white" %>
+    </div>
+  </div>
+
+<% end %>
