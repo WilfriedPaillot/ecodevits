@@ -35,12 +35,12 @@
             </div>
           </td>
           <td>
-            <%= link_to dashboard_admin_path do %>
+            <%= link_to edit_user_path(user) do %>
               <i class="bi bi-pencil-square text-success fs-5"></i>
             <% end %>
           </td>
           <td>
-            <%= link_to dashboard_admin_path, remote: false, data: { confirm: 'Êtes-vous sûr de vouloir refuser ce profil ?' } do%>
+            <%= link_to reject_user_path(user), remote: true, data: { confirm: 'Êtes-vous sûr de vouloir refuser ce profil ?' } do%>
               <i class="bi bi-trash text-danger fs-5"></i>
             <%end%>
           </td>
