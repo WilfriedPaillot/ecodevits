@@ -32,7 +32,8 @@ class Lesson < ApplicationRecord
   end
   # Returns the next lesson in the section
   def next
-    section.lessons.find_by(id: self.id + 1) if self.id != section.lessons.last.id
+    section.lessons.find(section.lessons.ids[section.lessons.ids.index(self.id) + 1]) if self.id != section.lessons.last.id
+    # section.lessons.find_by(id: self.id + 1) if self.id != section.lessons.last.id
   end
   # Returns the first lesson of the next section
   def first_of_next_section
