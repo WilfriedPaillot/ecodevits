@@ -34,10 +34,6 @@
               <i class="bi bi-eye"></i>
               Voir
             <% end %>
-            <%= link_to edit_training_path(training), class:"btn btn-outline-success" do %>
-              <i class="bi bi-pen"></i>
-              Editer
-            <% end %>
             <%= link_to training_path(training), 
                 method: :delete, 
                 data: { confirm: "Voulez-vous vraiment supprimer cette formation ?" },
@@ -64,7 +60,7 @@
             <h5 class="card-title mt-2"><%= followed_training.training.title %></h5>
             <h6 class="card-subtitle fst-italic fw-light">Par <%= followed_training.training.user.first_name.capitalize%> <%= followed_training.training.user.last_name.upcase%></h6>
             <div class="card-body p-0 mt-3">
-              <p><%= followed_training.training.description %></p>
+              <p><%= sanitize(followed_training.training.description, tags: %w(div p ul ol li em strong br)).html_safe %></p>
             </div>
             <%= link_to "Afficher les sections", instructor_training_path(followed_training.training.id), remote: true, class:'section_link' %>
         </div>

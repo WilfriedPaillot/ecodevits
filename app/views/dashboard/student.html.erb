@@ -20,7 +20,7 @@
             <h5 class="card-title mt-2"><%= user_training.training.title %></h5>
             <h6 class="card-subtitle fst-italic fw-light">Par <%= user_training.training.user.first_name.capitalize%> <%= user_training.training.user.last_name.upcase%></h6>
             <div class="card-body p-0 mt-3">
-              <p><%= user_training.training.description %></p>
+              <p><%= sanitize(user_training.training.description, tags: %w(div p ul ol li em strong br)).html_safe %></p>
             </div>
             <%#= link_to "Afficher les sections", dashboard_student_path(user_training.training), class:'section_link', remote: true %>
             <%#= link_to "Afficher les sections", dashboard_student_path+"?training=#{user_training.training.id}", remote: true, class:'section_link' %>

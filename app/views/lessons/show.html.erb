@@ -11,7 +11,7 @@
 <section class="row my-5">
   <div class="col-12">
     <p>
-      <%= @lesson.content %>
+      <%= sanitize(@lesson.content, tags: %w(div p ul ol li em strong br)).html_safe %>
     </p>
   </div>
   <div class="col-12 p-5">
