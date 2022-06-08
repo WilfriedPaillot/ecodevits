@@ -56,6 +56,10 @@ class User < ApplicationRecord
     approved? ? super : :not_approved
   end
 
+  def is_authorized(training)
+    self.role == "instructor" && training.user_id == self.id || self.role == "admin"
+  end
+
   # def excluding_admins
   #   where.not(role: "admin")
   # end
