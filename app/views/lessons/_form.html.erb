@@ -1,4 +1,6 @@
-<%= form_for(@lesson, url: training_section_lessons_path, class:'row') do |form| %>
+<% request.url.include?('edit') ? path = training_section_lesson_path(@lesson.section.training, @lesson.section, @lesson) : path = training_section_lessons_path %>
+
+<%= form_for(@lesson, url: path, class:'row') do |form| %>
 <div class="row justify-content-center mt-3">
   <div class="col-md-6">
     <%if lesson.errors.any? %>

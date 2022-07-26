@@ -19,9 +19,17 @@ class LessonsController < ApplicationController
   end
 
   def edit
+    @lesson = Lesson.find(params[:id])
+    @section = @lesson.section
+    @training = @section.training
   end
 
   def update
+    if @lesson.update(lesson_params)
+      redirect_to training_path(@lesson.section.training)
+    else
+      redirect_to :back, flash[:alert] = 'Leçon non mise à jour.'
+    end
   end
 
   def create
@@ -31,7 +39,7 @@ class LessonsController < ApplicationController
     if @lesson.save
       redirect_to training_path(@lesson.section.training)
     else
-      redirect_to @lesson, notice: 'Leçon non créée.'
+      redirect_to @lesson, flash[:alert] = 'Leçon non créée.'
     end
   end
 
@@ -49,7 +57,7 @@ class LessonsController < ApplicationController
 
     def can_edit_lesson?
       unless current_user.admin? || current_user.id == (Training.find(params[:training_id]).user_id) 
-        redirect_to trainings_url, notice: 'Bien essayé, mais vous n\'avez pas accès à cette page.'
+        redirect_to trainings_url, flash[:alert] = 'Bien essayé, mais vous n\'avez pas accès à cette page.'
       end
     end
 end
