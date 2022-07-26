@@ -11,10 +11,11 @@
     <meta name="turbolinks-visit-control" content="reload">
   </head>
 
-  <body>
+  <body> 
     <%= render 'shared/navbar' %>
 
     <div class="container">
+      <%= render 'shared/flash_messages' %>
       <%= yield %>
     </div>
 

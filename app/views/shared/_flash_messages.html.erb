@@ -1,0 +1,9 @@
+<div class="row justify-content-center mt-3">
+  <div class="col-md-6 col-lg-4">
+    <% flash.each do |key, value| %>
+      <div class="alert alert-<%= key %>">
+        <%= value %>
+      </div>
+    <% end %>
+  </div>
+</div>
