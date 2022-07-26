@@ -40,8 +40,7 @@ class User < ApplicationRecord
     length: { maximum: 100, message: "doit être inférieur à 100 caractères" }, 
     on: :update
   validates :zipcode, allow_blank: true, 
-    length: { is: 5, message: "doit être de 5 caractères"}, 
-    format: { with: /\A(([0-8][1-9])|(9[0-5]))[0-9]{3}|((97[1-8])[0-9]{2})|((98[1-8])[0-9]{2})|99138\z/ , message: "inexistant" }, 
+    length: { is: 5, message: "doit être de 5 caractères", message: "inexistant" }, 
     on: :update
   validates :city, allow_blank: true, 
     length: { maximum: 25, message: "doit être inférieur à 25 caractères" }, 
