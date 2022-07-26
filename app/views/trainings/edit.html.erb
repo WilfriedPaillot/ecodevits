@@ -1,13 +1,40 @@
-<h1>Training edition</h1>
+<section class="row d-flex justify-content-center align-items-center mt-5 mt-lg-0 mb-5">
+  <div class="col col-lg-10">
+    <div class="card shadow" style="border-radius: 1rem;">
+      <div class="card-body text-black">
+        <h2 class="mb-4 highlight_word">Editer la formation</h2>
+        <% if @training.errors.any? %>
+              <div class="alert alert-danger">
+                <% @training.errors.each do |error| %>
+                  <%= error %>
+                <% end %>
+              </div>
+        <% end %>
+        <%= form_for @training do |f| %>              
+              <div class="form-group" id="stageOne">
+                <div class="form-outline mb-4">
+                  <%= f.label :thumbnail, class: "form-label" %>
+                  <%= f.file_field :thumbnail, class: "form-control form-control-lg" %>
+                </div>
 
-  <%= form_for @training do |f| %>
-    <%= f.label :title %>
-    <%= f.text_field :title %>
-    <br>
-    <%= f.label :description %>
-    <%= f.text_area :description %>
-    <br>
-    <%= f.submit %>
-  <% end %>
+                <div class="form-outline mb-4">
+                  <%= f.label :title, 'Titre', class:"form-label" %>
+                  <%= f.text_field :title, autofocus: true, autocomplete: "title", class:"form-control form-control-lg" %>
+                </div>
 
-  <%= link_to "Annuler", :back %>
+                <div class="form-outline mb-4">
+                  <%= f.label :description, 'Description', class:"form-label" %>
+                  <%= f.trix_editor :description, autocomplete: "description", required: true, class:"form-control form-control-lg form-control_trix" %>
+                </div>
+              </div>
+
+              <div class="actions">
+                <%= f.submit "Enregistrer", class:"btn btn-lg gradient-custom text-white" %>
+              </div>
+        <% end %>
+
+        <%= link_to "Annuler", dashboard_instructor_path, class:"btn btn-lg btn-outline-custom" %>
+      </div>
+    </div>
+  </div>
+</section>
