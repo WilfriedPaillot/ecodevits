@@ -8,15 +8,6 @@ class User < ApplicationRecord
 
   enum role: [:student, :instructor, :admin]
 
-  #? Must changes for classname
-    #? has_many :followed_trainings , through: :user_trainings, source: :training
-    #? has_many :followed_sections , through: :user_trainings, source: :section
-    #? has_many :followed_lessons , through: :user_trainings, source: :lesson
-
-    #? has_many :authored_trainings, class_name: "Training", foreign_key: "author_id"
-    #? has_many :authored_sections, class_name: "Section", foreign_key: "author_id"
-    #? has_many :authored_lessons, class_name: "Lesson", foreign_key: "author_id"
-
   # Associations for instructor
   has_many :trainings, dependent: :destroy
   has_many :sections, through: :trainings
@@ -32,17 +23,18 @@ class User < ApplicationRecord
     length: { in: 3..15, message: ' doit contenir entre 3 et 15 caractères' },
     format: { with: /\A[a-zA-Z0-9_]+\z/, message: ' doit contenir uniquement des lettres, des chiffres et des underscores' },
     uniqueness: { case_sensitive: false }, on: :create
-    validates :first_name, :last_name, allow_blank: true, 
+
+  validates :first_name, :last_name, allow_blank: false, 
     length: { minimum: 2, maximum: 20, message: "doit être compris entre 2 et 20 caractères" }, 
     format: { with: /\A[a-zA-Z\s\-\']+\z/ , message: "ne doit contenir que des lettres" },
     on: :update
-  validates :adress, allow_blank: true, 
+  validates :adress, allow_blank: false, 
     length: { maximum: 100, message: "doit être inférieur à 100 caractères" }, 
     on: :update
-  validates :zipcode, allow_blank: true, 
-    length: { is: 5, message: "doit être de 5 caractères", message: "inexistant" }, 
+  validates :zipcode, allow_blank: false, 
+    length: { is: 5, message: "doit être de 5 caractères" }, 
     on: :update
-  validates :city, allow_blank: true, 
+  validates :city, allow_blank: false, 
     length: { maximum: 25, message: "doit être inférieur à 25 caractères" }, 
     format: { with: /\A[a-zA-Z\-\'\s]+\z/ , message: "ne doit contenir que des lettres" }, 
     on: :update
