@@ -10,8 +10,14 @@ class StaticPagesController < ApplicationController
   end
 
   def instructor
+    user = current_user
     respond_to do |format|
-      format.html { render :template => 'devise/registrations/new'}
+      if user.nil?
+        format.html { render :template => 'devise/registrations/new'}
+      elsif user.role == "student" && request.path.include?("devenir-instructeur")
+        format.html { render :template => 'devise/registrations/edit'}
+      end
     end
   end
+
 end
