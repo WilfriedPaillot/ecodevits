@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   protected
   # Devise overrides
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:username, :role, :first_name, :last_name, :adress, :zipcode, :city, specialities: []])
-    devise_parameter_sanitizer.permit(:account_update, keys: [:username, :first_name, :last_name, :adress, :zipcode, :city, specialities: []])	
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:role, :username, :first_name, :last_name, :adress, :zipcode, :city, specialities: []])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:role, :approved, :username, :first_name, :last_name, :adress, :zipcode, :city, specialities: []])	
   end
 end
