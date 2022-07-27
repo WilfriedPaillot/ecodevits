@@ -2,12 +2,6 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :restricted_access_to_admin
 
-  # def index
-  #   @users = User.excluding_admins.ordered_by_role_and_last_name
-  #   @user_approval = User.where(role: "instructor").order(:created_at)
-  #   @unapproved_user = @users.where(approved: false)
-  # end
-
   def edit
     @user = User.find(params[:id])
   end
