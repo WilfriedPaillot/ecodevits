@@ -58,7 +58,7 @@ Sinon, rien de tel que les documentations officielles! 😉
 ### Déploiement local
 
 1. Cloner le dépot
-<pre>git clone git@github.com:WilfriedPaillot/ecoit.git</pre>
+<pre>git clone git@github.com:WilfriedPaillot/ecodevits.git</pre>
 
 2. Naviguer vers le dossier projet
 <pre>cd ecoit</pre>
